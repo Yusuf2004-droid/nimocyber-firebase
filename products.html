@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Products - NimoCyber Kenya</title>
+<style>
+  :root{--blue:#2d4fa1;--navy:#253a8c;--orange:#f47b20;--yellow:#fdb913;--green:#00935f;--grey:#e8e8e8}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Arial,Helvetica,sans-serif;color:#111;background:#fff}
+  a{text-decoration:none;color:inherit}
+
+  .banner{background:var(--blue);color:#fff;display:flex;align-items:center;gap:30px;padding:14px 50px;flex-wrap:wrap}
+  .banner h1{font-size:34px;font-weight:800;letter-spacing:.5px}
+  .banner .pill{background:#fff;color:#111;font-size:26px;padding:6px 40px;border-radius:30px}
+  .banner small{font-size:16px}
+  .greybar{background:var(--grey);display:flex;align-items:center;padding:12px 50px;gap:60px;flex-wrap:wrap}
+  .greybar .l{color:var(--orange);font-weight:bold;font-size:13px}
+  .greybar .c{color:var(--orange);font-weight:bold;font-size:20px}
+  .greybar .t{font-weight:bold;font-size:15px}
+  .head{display:flex;align-items:center;gap:30px;padding:14px 50px;flex-wrap:wrap}
+  .brand{color:var(--blue);font-weight:800;font-size:26px;line-height:1}
+  .search{flex:1;min-width:260px;background:var(--grey);border-radius:30px;display:flex;align-items:center;padding:6px 8px 6px 20px;gap:10px}
+  .search img{width:20px}
+  .search input{flex:1;border:none;background:transparent;font-size:15px;outline:none}
+  .search button{background:var(--orange);color:#fff;border:none;border-radius:24px;padding:12px 26px;font-size:15px;cursor:pointer}
+  .actions{display:flex;align-items:center;gap:26px;font-size:18px}
+  .actions a{display:flex;align-items:center;gap:8px}
+  .actions img{width:24px}
+  .actions .chev{font-size:12px}
+  .cats{display:flex;justify-content:space-between;gap:18px;padding:12px 30px 14px;overflow-x:auto;white-space:nowrap;border-bottom:1px solid #eee}
+  .cats a{display:flex;align-items:center;gap:7px;font-size:14px}
+  .cats a.on{color:var(--blue);font-weight:bold}
+  .cats img,.cats svg{height:16px;width:auto}
+
+  .wrap{max-width:1100px;margin:auto;padding:30px 20px}
+  h2.title{text-align:center;font-size:30px;margin-bottom:6px}
+  .info{text-align:center;color:#555;font-size:14px;margin-bottom:18px}
+  .filters{text-align:center;margin-bottom:22px}
+  .filters button{border:1px solid var(--blue);background:#fff;color:var(--blue);padding:7px 16px;border-radius:18px;margin:3px;cursor:pointer;font-size:13px}
+  .filters button.active{background:var(--blue);color:#fff}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+  .card{background:#f4f5f4;border-radius:10px;padding:18px 14px;text-align:center;display:flex;flex-direction:column;align-items:center}
+  .card .ico{background:#fff;border-radius:10px;width:100%;height:90px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+  .card .ico img{height:48px}
+  .card h3{font-size:15px;margin-bottom:4px}
+  .card .cat{font-size:12px;color:#666;margin-bottom:8px}
+  .card .price{font-weight:bold;color:var(--orange);font-size:17px;margin-bottom:4px}
+  .card .stock{font-size:12px;color:#444;margin-bottom:12px;flex:1}
+  .card button{background:var(--navy);color:#fff;border:none;padding:9px 20px;border-radius:18px;cursor:pointer;font-size:13px}
+  .card button.added{background:var(--green)}
+  .card button:disabled{background:#aaa;cursor:not-allowed}
+  @media(max-width:800px){
+    .banner,.greybar,.head{padding-left:16px;padding-right:16px;gap:14px}
+    .banner h1{font-size:22px}.banner .pill{font-size:18px;padding:4px 20px}
+  }
+</style>
+</head>
+<body>
+
+<div class="banner">
+  <h1>NIMO CYBER &amp; ACCESSORIES</h1>
+  <span class="pill">60% off</span>
+  <small>Limited quantity</small>
+</div>
+
+<div class="greybar">
+  <span class="l">Cyber Services &amp; Sell Accessories on Nimo</span>
+  <span class="c">NIMO CYBER</span>
+  <span class="t">PAY</span>
+  <span class="t">DELIVERY</span>
+</div>
+
+<div class="head">
+  <a class="brand" href="index.html">NIMO CYBER &amp;<br>ACCESSORIES</a>
+  <form class="search" action="products.html">
+    <img src="assets/images/icon-search.png" alt="">
+    <input type="text" name="q" id="q" placeholder="Search products,cyber services and accessories" />
+    <button type="submit">Search</button>
+  </form>
+  <div class="actions">
+    <a href="#"><img src="assets/images/icon-account.png" alt="">Account <span class="chev">&#9013;</span></a>
+    <a href="#"><img src="assets/images/icon-help.png" alt="">Help <span class="chev">&#9013;</span></a>
+    <a href="cart.html"><img src="assets/images/icon-cart.png" alt="">Cart (<span id="cartCount">0</span>)</a>
+  </div>
+</div>
+
+<nav class="cats" id="cats">
+  <a href="index.html#services"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><path d="M3 10l9-6 9 6M5 10v9M19 10v9M9 19v-6M15 19v-6M3 19h18"/></svg>Government &amp; Digital Portals</a>
+  <a href="products.html?category=Document Processing"><img src="assets/images/icon-gear.png" alt="">Document Processing</a>
+  <a href="products.html?category=Finishing Services"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>Finishing Services</a>
+  <a href="products.html?category=Maintenance"><img src="assets/images/icon-wrench.png" alt="">Maintenance</a>
+  <a href="products.html?category=Paper Supplies"><img src="assets/images/icon-paper.png" alt="">Paper Supplies</a>
+  <a href="products.html?category=Organization"><img src="assets/images/icon-document.png" alt="">Organization</a>
+  <a href="products.html?category=Stationery"><img src="assets/images/icon-pencil-cup.png" alt="">Stationery</a>
+  <a href="products.html?category=Computing"><img src="assets/images/icon-monitor.png" alt="">Computing</a>
+  <a href="products.html?category=Networking"><img src="assets/images/icon-globe.png" alt="">Networking</a>
+</nav>
+
+<div class="wrap">
+  <h2 class="title">Our Products</h2>
+  <div class="info" id="info"></div>
+  <div class="filters" id="filters"></div>
+  <div class="grid" id="productGrid">Loading products...</div>
+</div>
+
+<script type="module">
+  import { db } from "./assets/js/firebase-config.js";
+  import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const grid = document.getElementById("productGrid");
+  const filters = document.getElementById("filters");
+  const info = document.getElementById("info");
+  const cartCount = document.getElementById("cartCount");
+  const params = new URLSearchParams(location.search);
+  const query = (params.get("q") || "").trim().toLowerCase();
+  let current = params.get("category") || "All";
+  let products = [];
+
+  document.getElementById("q").value = params.get("q") || "";
+  document.querySelectorAll("#cats a").forEach(a => {
+    if (current !== "All" && a.href.includes(encodeURIComponent(current))) a.classList.add("on");
+  });
+
+  const icons = {
+    "Paper Supplies": "icon-paper.png", "Stationery": "icon-pencil-cup.png",
+    "Computing": "icon-monitor.png", "Networking": "icon-globe.png",
+    "Organization": "icon-document.png", "Maintenance": "icon-wrench.png"
+  };
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  function getCart() {
+    try { return JSON.parse(localStorage.getItem("cart")) || []; }
+    catch { return []; }
+  }
+  function updateCount() {
+    cartCount.textContent = getCart().reduce((n, i) => n + i.qty, 0);
+  }
+  window.addToCart = function (id, btn) {
+    const p = products.find(x => x.id === id);
+    if (!p) return;
+    const cart = getCart();
+    const item = cart.find(x => x.id === id);
+    if (item) item.qty += 1;
+    else cart.push({ id: p.id, name: p.name, price: p.price, qty: 1 });
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCount();
+    btn.textContent = "Added!";
+    btn.classList.add("added");
+    setTimeout(() => { btn.textContent = "Add to Cart"; btn.classList.remove("added"); }, 1200);
+  };
+
+  function render() {
+    const list = products.filter(p =>
+      (current === "All" || p.category === current) &&
+      (!query || (p.name + " " + p.category).toLowerCase().includes(query)));
+    info.textContent = list.length + " product" + (list.length === 1 ? "" : "s") +
+      (current !== "All" ? " in " + current : "") + (query ? " matching \"" + params.get("q") + "\"" : "");
+    grid.innerHTML = list.map(p => `
+      <div class="card">
+        <div class="ico"><img src="assets/images/${icons[p.category] || "icon-gear.png"}" alt=""></div>
+        <h3>${esc(p.name)}</h3>
+        <div class="cat">${esc(p.category)}</div>
+        <div class="price">KES ${Number(p.price).toLocaleString()}</div>
+        <div class="stock">${p.stock > 0 ? p.stock + " in stock" : "Out of stock"}</div>
+        <button onclick="addToCart('${p.id}', this)" ${p.stock > 0 ? "" : "disabled"}>Add to Cart</button>
+      </div>`).join("") || "No products found.";
+  }
+
+  function renderFilters() {
+    const cats = ["All", ...new Set(products.map(p => p.category))];
+    filters.innerHTML = cats.map(c =>
+      `<button class="${c === current ? "active" : ""}" data-cat="${esc(c)}">${esc(c)}</button>`).join("");
+    filters.querySelectorAll("button").forEach(b => {
+      b.onclick = () => { current = b.dataset.cat; renderFilters(); render(); };
+    });
+  }
+
+  updateCount();
+  try {
+    const snap = await getDocs(collection(db, "products"));
+    products = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    renderFilters();
+    render();
+  } catch (e) {
+    grid.textContent = "Error: " + e.message;
+  }
+</script>
+</body>
+</html>

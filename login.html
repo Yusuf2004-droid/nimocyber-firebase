@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Account - NimoCyber Kenya</title>
+<style>
+  :root{--blue:#2d4fa1;--navy:#253a8c;--orange:#f47b20;--yellow:#fdb913;--green:#00935f;--grey:#e8e8e8}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Arial,Helvetica,sans-serif;color:#111;background:#fff}
+  a{text-decoration:none;color:inherit}
+
+  .banner{background:var(--blue);color:#fff;display:flex;align-items:center;gap:30px;padding:14px 50px;flex-wrap:wrap}
+  .banner h1{font-size:34px;font-weight:800;letter-spacing:.5px}
+  .banner .pill{background:#fff;color:#111;font-size:26px;padding:6px 40px;border-radius:30px}
+  .banner small{font-size:16px}
+  .greybar{background:var(--grey);display:flex;align-items:center;padding:12px 50px;gap:60px;flex-wrap:wrap}
+  .greybar .l{color:var(--orange);font-weight:bold;font-size:13px}
+  .greybar .c{color:var(--orange);font-weight:bold;font-size:20px}
+  .greybar .t{font-weight:bold;font-size:15px}
+  .head{display:flex;align-items:center;gap:30px;padding:14px 50px;flex-wrap:wrap}
+  .brand{color:var(--blue);font-weight:800;font-size:26px;line-height:1}
+  .search{flex:1;min-width:260px;background:var(--grey);border-radius:30px;display:flex;align-items:center;padding:6px 8px 6px 20px;gap:10px}
+  .search img{width:20px}
+  .search input{flex:1;border:none;background:transparent;font-size:15px;outline:none}
+  .search button{background:var(--orange);color:#fff;border:none;border-radius:24px;padding:12px 26px;font-size:15px;cursor:pointer}
+  .actions{display:flex;align-items:center;gap:26px;font-size:18px}
+  .actions a{display:flex;align-items:center;gap:8px}
+  .actions img{width:24px}
+  .actions .chev{font-size:12px}
+  .cats{display:flex;justify-content:space-between;gap:18px;padding:12px 30px 14px;overflow-x:auto;white-space:nowrap;border-bottom:1px solid #eee}
+  .cats a{display:flex;align-items:center;gap:7px;font-size:14px}
+  .cats img,.cats svg{height:16px;width:auto}
+
+  .box{max-width:420px;margin:40px auto;background:#f4f5f4;border-radius:12px;padding:26px 24px}
+  .tabs{display:flex;margin-bottom:20px;background:#fff;border-radius:24px;padding:4px}
+  .tabs button{flex:1;border:none;background:transparent;padding:10px;border-radius:20px;font-size:14px;cursor:pointer}
+  .tabs button.on{background:var(--navy);color:#fff}
+  label{display:block;font-size:13px;margin:12px 0 4px}
+  input.f{width:100%;border:1px solid #ccc;border-radius:8px;padding:11px;font-size:14px}
+  .go{width:100%;margin-top:18px;background:var(--orange);color:#fff;border:none;border-radius:24px;padding:12px;font-size:15px;cursor:pointer}
+  .go:disabled{background:#aaa}
+  .msg{margin-top:14px;font-size:13px;text-align:center;min-height:18px}
+  .msg.err{color:#c0392b}.msg.ok{color:var(--green)}
+  .me{text-align:center}
+  .me h3{margin-bottom:6px}
+  .me p{font-size:14px;color:#444;margin-bottom:16px}
+  .hide{display:none}
+  @media(max-width:800px){
+    .banner,.greybar,.head{padding-left:16px;padding-right:16px;gap:14px}
+    .banner h1{font-size:22px}.banner .pill{font-size:18px;padding:4px 20px}
+  }
+</style>
+</head>
+<body>
+
+<div class="banner">
+  <h1>NIMO CYBER &amp; ACCESSORIES</h1>
+  <span class="pill">60% off</span>
+  <small>Limited quantity</small>
+</div>
+
+<div class="greybar">
+  <span class="l">Cyber Services &amp; Sell Accessories on Nimo</span>
+  <span class="c">NIMO CYBER</span>
+  <span class="t">PAY</span>
+  <span class="t">DELIVERY</span>
+</div>
+
+<div class="head">
+  <a class="brand" href="index.html">NIMO CYBER &amp;<br>ACCESSORIES</a>
+  <form class="search" action="products.html">
+    <img src="assets/images/icon-search.png" alt="">
+    <input type="text" name="q" placeholder="Search products,cyber services and accessories" />
+    <button type="submit">Search</button>
+  </form>
+  <div class="actions">
+    <a href="login.html"><img src="assets/images/icon-account.png" alt="">Account <span class="chev">&#9013;</span></a>
+    <a href="#"><img src="assets/images/icon-help.png" alt="">Help <span class="chev">&#9013;</span></a>
+    <a href="cart.html"><img src="assets/images/icon-cart.png" alt="">Cart (<span id="cartCount">0</span>)</a>
+  </div>
+</div>
+
+<nav class="cats">
+  <a href="index.html#services"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><path d="M3 10l9-6 9 6M5 10v9M19 10v9M9 19v-6M15 19v-6M3 19h18"/></svg>Government &amp; Digital Portals</a>
+  <a href="products.html?category=Document Processing"><img src="assets/images/icon-gear.png" alt="">Document Processing</a>
+  <a href="products.html?category=Finishing Services"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>Finishing Services</a>
+  <a href="products.html?category=Maintenance"><img src="assets/images/icon-wrench.png" alt="">Maintenance</a>
+  <a href="products.html?category=Paper Supplies"><img src="assets/images/icon-paper.png" alt="">Paper Supplies</a>
+  <a href="products.html?category=Organization"><img src="assets/images/icon-document.png" alt="">Organization</a>
+  <a href="products.html?category=Stationery"><img src="assets/images/icon-pencil-cup.png" alt="">Stationery</a>
+  <a href="products.html?category=Computing"><img src="assets/images/icon-monitor.png" alt="">Computing</a>
+  <a href="products.html?category=Networking"><img src="assets/images/icon-globe.png" alt="">Networking</a>
+</nav>
+
+<div class="box">
+  <!-- signed-out view -->
+  <div id="formView">
+    <div class="tabs">
+      <button id="tabLogin" class="on" type="button">Login</button>
+      <button id="tabReg" type="button">Register</button>
+    </div>
+    <div id="nameRow" class="hide">
+      <label for="name">Full name</label>
+      <input class="f" id="name" type="text" autocomplete="name" />
+    </div>
+    <label for="email">Email</label>
+    <input class="f" id="email" type="email" autocomplete="email" />
+    <label for="pass">Password (at least 6 characters)</label>
+    <input class="f" id="pass" type="password" autocomplete="current-password" />
+    <button class="go" id="go" type="button">Login</button>
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <!-- signed-in view -->
+  <div id="meView" class="me hide">
+    <h3 id="meName"></h3>
+    <p id="meEmail"></p>
+    <a class="go" style="display:block;text-align:center" href="products.html">Start shopping</a>
+    <button class="go" id="logout" type="button" style="background:#fff;color:#c0392b;border:1px solid #c0392b">Log out</button>
+  </div>
+</div>
+
+<script type="module">
+  import { db, auth } from "./assets/js/firebase-config.js";
+  import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut,
+           updateProfile, onAuthStateChanged }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { doc, setDoc, serverTimestamp }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const $ = id => document.getElementById(id);
+  let mode = "login";
+
+  try {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    $("cartCount").textContent = cart.reduce((n, i) => n + i.qty, 0);
+  } catch {}
+
+  function setMode(m) {
+    mode = m;
+    $("tabLogin").classList.toggle("on", m === "login");
+    $("tabReg").classList.toggle("on", m === "register");
+    $("nameRow").classList.toggle("hide", m === "login");
+    $("go").textContent = m === "login" ? "Login" : "Create account";
+    $("pass").autocomplete = m === "login" ? "current-password" : "new-password";
+    show("");
+  }
+  function show(text, type) {
+    $("msg").textContent = text;
+    $("msg").className = "msg" + (type ? " " + type : "");
+  }
+  function friendly(code) {
+    const map = {
+      "auth/invalid-email": "That email address is not valid.",
+      "auth/missing-password": "Please enter your password.",
+      "auth/weak-password": "Password must be at least 6 characters.",
+      "auth/email-already-in-use": "An account with this email already exists. Try logging in.",
+      "auth/invalid-credential": "Wrong email or password.",
+      "auth/user-not-found": "No account found with this email.",
+      "auth/wrong-password": "Wrong email or password.",
+      "auth/too-many-requests": "Too many attempts. Please wait a few minutes and try again.",
+      "auth/network-request-failed": "No internet connection. Please try again.",
+      "auth/operation-not-allowed": "Email/Password sign-in is not enabled in Firebase yet."
+    };
+    return map[code] || "Something went wrong (" + code + ").";
+  }
+
+  $("tabLogin").onclick = () => setMode("login");
+  $("tabReg").onclick = () => setMode("register");
+
+  $("go").onclick = async () => {
+    const email = $("email").value.trim();
+    const pass = $("pass").value;
+    const name = $("name").value.trim();
+    if (!email || !pass) { show("Please enter your email and password.", "err"); return; }
+    if (mode === "register" && !name) { show("Please enter your full name.", "err"); return; }
+    $("go").disabled = true;
+    show("Please wait...");
+    try {
+      if (mode === "register") {
+        const cred = await createUserWithEmailAndPassword(auth, email, pass);
+        await updateProfile(cred.user, { displayName: name });
+        await setDoc(doc(db, "users", cred.user.uid), {
+          name, email, role: "customer", createdAt: serverTimestamp()
+        });
+        show("Account created. Welcome!", "ok");
+      } else {
+        await signInWithEmailAndPassword(auth, email, pass);
+        show("Logged in.", "ok");
+      }
+      setTimeout(() => { location.href = "index.html"; }, 900);
+    } catch (e) {
+      show(friendly(e.code), "err");
+      $("go").disabled = false;
+    }
+  };
+
+  $("logout").onclick = async () => { await signOut(auth); };
+
+  onAuthStateChanged(auth, user => {
+    $("formView").classList.toggle("hide", !!user);
+    $("meView").classList.toggle("hide", !user);
+    if (user) {
+      $("meName").textContent = user.displayName || "Welcome";
+      $("meEmail").textContent = user.email;
+    }
+  });
+</script>
+</body>
+</html>

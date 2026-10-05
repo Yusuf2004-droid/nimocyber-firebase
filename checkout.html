@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Checkout - NimoCyber Kenya</title>
+<style>
+  :root{--blue:#2d4fa1;--navy:#253a8c;--orange:#f47b20;--yellow:#fdb913;--green:#00935f;--grey:#e8e8e8}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Arial,Helvetica,sans-serif;color:#111;background:#fff}
+  a{text-decoration:none;color:inherit}
+
+  .banner{background:var(--blue);color:#fff;display:flex;align-items:center;gap:30px;padding:14px 50px;flex-wrap:wrap}
+  .banner h1{font-size:34px;font-weight:800;letter-spacing:.5px}
+  .banner .pill{background:#fff;color:#111;font-size:26px;padding:6px 40px;border-radius:30px}
+  .banner small{font-size:16px}
+  .greybar{background:var(--grey);display:flex;align-items:center;padding:12px 50px;gap:60px;flex-wrap:wrap}
+  .greybar .l{color:var(--orange);font-weight:bold;font-size:13px}
+  .greybar .c{color:var(--orange);font-weight:bold;font-size:20px}
+  .greybar .t{font-weight:bold;font-size:15px}
+  .head{display:flex;align-items:center;gap:30px;padding:14px 50px;flex-wrap:wrap}
+  .brand{color:var(--blue);font-weight:800;font-size:26px;line-height:1}
+  .search{flex:1;min-width:260px;background:var(--grey);border-radius:30px;display:flex;align-items:center;padding:6px 8px 6px 20px;gap:10px}
+  .search img{width:20px}
+  .search input{flex:1;border:none;background:transparent;font-size:15px;outline:none}
+  .search button{background:var(--orange);color:#fff;border:none;border-radius:24px;padding:12px 26px;font-size:15px;cursor:pointer}
+  .actions{display:flex;align-items:center;gap:26px;font-size:18px}
+  .actions a{display:flex;align-items:center;gap:8px}
+  .actions img{width:24px}
+  .actions .chev{font-size:12px}
+  .cats{display:flex;justify-content:space-between;gap:18px;padding:12px 30px 14px;overflow-x:auto;white-space:nowrap;border-bottom:1px solid #eee}
+  .cats a{display:flex;align-items:center;gap:7px;font-size:14px}
+  .cats img,.cats svg{height:16px;width:auto}
+
+  .wrap{max-width:1000px;margin:auto;padding:30px 20px}
+  h2.title{text-align:center;font-size:30px;margin-bottom:20px}
+  .grid{display:grid;grid-template-columns:3fr 2fr;gap:20px;align-items:start}
+  .card{background:#f4f5f4;border-radius:10px;padding:20px}
+  .card h3{font-size:17px;margin-bottom:10px}
+  label{display:block;font-size:13px;margin:12px 0 4px}
+  .f{width:100%;border:1px solid #ccc;border-radius:8px;padding:11px;font-size:14px;font-family:inherit;background:#fff}
+  textarea.f{min-height:70px;resize:vertical}
+  .radios{display:flex;gap:10px;flex-wrap:wrap}
+  .radios label{margin:0;background:#fff;border:1px solid #ccc;border-radius:20px;padding:9px 16px;cursor:pointer;font-size:14px}
+  .radios input{margin-right:6px}
+  .line{display:flex;justify-content:space-between;gap:10px;margin-bottom:8px;font-size:14px}
+  .line.total{font-weight:bold;font-size:20px;color:var(--orange);border-top:1px solid #ccc;padding-top:12px;margin-top:6px}
+  .go{width:100%;margin-top:16px;background:var(--green);color:#fff;border:none;border-radius:24px;padding:13px;font-size:15px;cursor:pointer;display:block;text-align:center}
+  .go:disabled{background:#aaa;cursor:not-allowed}
+  .go.alt{background:var(--yellow);color:#111}
+  .msg{margin-top:12px;font-size:13px;text-align:center;color:#c0392b;min-height:18px}
+  .problems{background:#fdecea;border:1px solid #c0392b;border-radius:8px;padding:10px;font-size:13px;margin-bottom:12px}
+  .done{max-width:520px;margin:auto;text-align:center;background:#f4f5f4;border-radius:12px;padding:30px 22px}
+  .done h3{font-size:24px;color:var(--green);margin-bottom:8px}
+  .ref{display:inline-block;background:#fff;border-radius:8px;padding:8px 16px;font-weight:bold;letter-spacing:1px;margin:8px 0 12px}
+  .empty{text-align:center;padding:50px 10px;color:#555}
+  .empty a{display:inline-block;margin-top:16px;background:var(--yellow);color:#111;padding:12px 28px;border-radius:22px}
+  .hide{display:none}
+  @media(max-width:800px){
+    .banner,.greybar,.head{padding-left:16px;padding-right:16px;gap:14px}
+    .banner h1{font-size:22px}.banner .pill{font-size:18px;padding:4px 20px}
+    .grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div class="banner">
+  <h1>NIMO CYBER &amp; ACCESSORIES</h1>
+  <span class="pill">60% off</span>
+  <small>Limited quantity</small>
+</div>
+
+<div class="greybar">
+  <span class="l">Cyber Services &amp; Sell Accessories on Nimo</span>
+  <span class="c">NIMO CYBER</span>
+  <span class="t">PAY</span>
+  <span class="t">DELIVERY</span>
+</div>
+
+<div class="head">
+  <a class="brand" href="index.html">NIMO CYBER &amp;<br>ACCESSORIES</a>
+  <form class="search" action="products.html">
+    <img src="assets/images/icon-search.png" alt="">
+    <input type="text" name="q" placeholder="Search products,cyber services and accessories" />
+    <button type="submit">Search</button>
+  </form>
+  <div class="actions">
+    <a href="login.html" id="accountLink"><img src="assets/images/icon-account.png" alt="">Account <span class="chev">&#9013;</span></a>
+    <a href="#"><img src="assets/images/icon-help.png" alt="">Help <span class="chev">&#9013;</span></a>
+    <a href="cart.html"><img src="assets/images/icon-cart.png" alt="">Cart (<span id="cartCount">0</span>)</a>
+  </div>
+</div>
+
+<nav class="cats">
+  <a href="index.html#services"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><path d="M3 10l9-6 9 6M5 10v9M19 10v9M9 19v-6M15 19v-6M3 19h18"/></svg>Government &amp; Digital Portals</a>
+  <a href="products.html?category=Document Processing"><img src="assets/images/icon-gear.png" alt="">Document Processing</a>
+  <a href="products.html?category=Finishing Services"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>Finishing Services</a>
+  <a href="products.html?category=Maintenance"><img src="assets/images/icon-wrench.png" alt="">Maintenance</a>
+  <a href="products.html?category=Paper Supplies"><img src="assets/images/icon-paper.png" alt="">Paper Supplies</a>
+  <a href="products.html?category=Organization"><img src="assets/images/icon-document.png" alt="">Organization</a>
+  <a href="products.html?category=Stationery"><img src="assets/images/icon-pencil-cup.png" alt="">Stationery</a>
+  <a href="products.html?category=Computing"><img src="assets/images/icon-monitor.png" alt="">Computing</a>
+  <a href="products.html?category=Networking"><img src="assets/images/icon-globe.png" alt="">Networking</a>
+</nav>
+
+<div class="wrap">
+  <h2 class="title">Checkout</h2>
+
+  <div id="emptyView" class="empty hide">Your cart is empty.<br><a href="products.html">Continue shopping</a></div>
+
+  <div id="mainView" class="grid hide">
+    <div class="card">
+      <h3>Your details</h3>
+      <label for="name">Full name</label>
+      <input class="f" id="name" type="text" autocomplete="name" />
+      <label for="phone">Phone / WhatsApp number</label>
+      <input class="f" id="phone" type="tel" placeholder="0712 345 678" autocomplete="tel" />
+      <label for="email">Email (optional)</label>
+      <input class="f" id="email" type="email" autocomplete="email" />
+
+      <label>How do you want to receive your order?</label>
+      <div class="radios">
+        <label><input type="radio" name="method" value="pickup" checked />Pick up in store</label>
+        <label><input type="radio" name="method" value="delivery" />Delivery</label>
+      </div>
+      <div id="addrRow" class="hide">
+        <label for="address">Delivery address / location</label>
+        <input class="f" id="address" type="text" placeholder="Town, estate, landmark" />
+      </div>
+
+      <label for="payment">Payment</label>
+      <select class="f" id="payment">
+        <option>Pay on pickup / delivery</option>
+        <option>M-Pesa (payment details sent on WhatsApp)</option>
+      </select>
+
+      <label for="note">Note (optional)</label>
+      <textarea class="f" id="note" placeholder="Anything we should know?"></textarea>
+    </div>
+
+    <div class="card">
+      <h3>Order summary</h3>
+      <div id="problems" class="problems hide"></div>
+      <div id="lines"></div>
+      <div class="line total"><span>Total</span><span id="total">KES 0</span></div>
+      <button class="go" id="place" type="button">Place order</button>
+      <a class="go alt" href="cart.html">Back to cart</a>
+      <div class="msg" id="msg"></div>
+    </div>
+  </div>
+
+  <div id="doneView" class="done hide">
+    <h3>Order received</h3>
+    <p>Thank you, <b id="dName"></b>. Your order number is:</p>
+    <div class="ref" id="dRef"></div>
+    <p>Tap below to confirm your order with us on WhatsApp.</p>
+    <a class="go" id="dWa" href="#" target="_blank">Confirm on WhatsApp</a>
+    <a class="go alt" href="index.html">Back to home</a>
+  </div>
+</div>
+
+<script type="module">
+  import { db, auth } from "./assets/js/firebase-config.js";
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { collection, getDocs, addDoc, serverTimestamp }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const money = n => "KES " + Number(n).toLocaleString();
+
+  let cart = [];
+  try { cart = JSON.parse(localStorage.getItem("cart")) || []; } catch {}
+  $("cartCount").textContent = cart.reduce((n, i) => n + i.qty, 0);
+
+  let uid = null, lines = [], total = 0, waBase = "";
+
+  onAuthStateChanged(auth, user => {
+    uid = user ? user.uid : null;
+    if (user) {
+      if (!$("name").value) $("name").value = user.displayName || "";
+      if (!$("email").value) $("email").value = user.email || "";
+    }
+  });
+
+  document.querySelectorAll("input[name=method]").forEach(r => {
+    r.onchange = () => $("addrRow").classList.toggle("hide", document.querySelector("input[name=method]:checked").value !== "delivery");
+  });
+
+  if (!cart.length) {
+    $("emptyView").classList.remove("hide");
+  } else {
+    try {
+      const [pSnap, sSnap] = await Promise.all([
+        getDocs(collection(db, "products")), getDocs(collection(db, "services"))
+      ]);
+      const prods = {};
+      pSnap.docs.forEach(d => prods[d.id] = d.data());
+      for (const d of sSnap.docs) {
+        const w = d.data().whatsapp;
+        if (w) { waBase = w.split("?")[0]; break; }
+      }
+
+      const problems = [];
+      cart.forEach(i => {
+        const p = prods[i.id];
+        if (!p) { problems.push(esc(i.name) + " is no longer available."); return; }
+        if (Number(p.stock) < i.qty) { problems.push(esc(p.name) + ": only " + p.stock + " left in stock."); return; }
+        lines.push({ id: i.id, name: p.name, price: Number(p.price), qty: i.qty });
+      });
+      total = lines.reduce((n, l) => n + l.price * l.qty, 0);
+
+      $("lines").innerHTML = lines.map(l =>
+        `<div class="line"><span>${esc(l.name)} x${l.qty}</span><span>${money(l.price * l.qty)}</span></div>`).join("");
+      $("total").textContent = money(total);
+      if (problems.length) {
+        $("problems").innerHTML = problems.join("<br>") + '<br><a href="cart.html"><b>Update your cart</b></a>';
+        $("problems").classList.remove("hide");
+        $("place").disabled = true;
+      }
+      $("mainView").classList.remove("hide");
+    } catch (e) {
+      $("emptyView").textContent = "Could not load your order: " + e.message;
+      $("emptyView").classList.remove("hide");
+    }
+  }
+
+  const show = t => $("msg").textContent = t;
+
+  $("place").onclick = async () => {
+    const name = $("name").value.trim();
+    const phone = $("phone").value.replace(/[\s-]/g, "");
+    const email = $("email").value.trim();
+    const method = document.querySelector("input[name=method]:checked").value;
+    const address = $("address").value.trim();
+    const payment = $("payment").value;
+    const note = $("note").value.trim();
+
+    if (!name) return show("Please enter your full name.");
+    if (!/^\+?\d{9,13}$/.test(phone)) return show("Please enter a valid phone number.");
+    if (method === "delivery" && !address) return show("Please enter your delivery address.");
+    if (!lines.length) return show("Your cart has no valid items.");
+
+    $("place").disabled = true;
+    show("");
+    try {
+      const ref = await addDoc(collection(db, "orders"), {
+        items: lines, total, name, phone, email, method, address, note, payment,
+        userId: uid, status: "new", createdAt: serverTimestamp()
+      });
+      const code = ref.id.slice(0, 6).toUpperCase();
+      const msg = `Hello NimoCyber, I placed order ${code}.\n` +
+        lines.map(l => `- ${l.name} x${l.qty} = ${money(l.price * l.qty)}`).join("\n") +
+        `\nTotal: ${money(total)}\n${method === "delivery" ? "Delivery to: " + address : "Pick up in store"}\nPayment: ${payment}\nName: ${name}, Phone: ${phone}`;
+      localStorage.removeItem("cart");
+      $("cartCount").textContent = "0";
+      $("dName").textContent = name;
+      $("dRef").textContent = code;
+      if (waBase) $("dWa").href = waBase + "?text=" + encodeURIComponent(msg);
+      else $("dWa").classList.add("hide");
+      $("mainView").classList.add("hide");
+      $("doneView").classList.remove("hide");
+    } catch (e) {
+      show("Could not place your order. Please try again.");
+      $("place").disabled = false;
+    }
+  };
+</script>
+<script type="module" src="assets/js/account.js"></script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Admin - NimoCyber Kenya</title>
+<style>
+  :root{--blue:#2d4fa1;--navy:#253a8c;--orange:#f47b20;--yellow:#fdb913;--green:#00935f;--grey:#e8e8e8}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Arial,Helvetica,sans-serif;color:#111;background:#f4f5f4}
+  a{text-decoration:none;color:inherit}
+  .banner{background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 30px;flex-wrap:wrap}
+  .banner h1{font-size:24px;font-weight:800}
+  .banner a{background:#fff;color:var(--blue);padding:8px 16px;border-radius:20px;font-size:13px}
+  .wrap{max-width:1100px;margin:24px auto;padding:0 16px}
+  .tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+  .tabs button{border:1px solid var(--navy);background:#fff;color:var(--navy);padding:9px 20px;border-radius:20px;cursor:pointer;font-size:14px}
+  .tabs button.on{background:var(--navy);color:#fff}
+  .panel{background:#fff;border-radius:10px;padding:18px}
+  .center{text-align:center;padding:50px 10px;color:#444}
+  .center a{display:inline-block;margin-top:14px;background:var(--orange);color:#fff;padding:10px 24px;border-radius:20px}
+  .hide{display:none}
+  h2{font-size:20px;margin-bottom:12px}
+  .bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+  .bar h2{margin:0}
+  .app{border:1px solid #ddd;border-radius:8px;padding:12px 14px;margin-bottom:10px;display:grid;grid-template-columns:1fr auto;gap:8px 16px;font-size:13px}
+  .app .t{font-weight:bold;font-size:15px}
+  .app .d{color:#444;grid-column:1/-1}
+  .app .meta{color:#666;font-size:12px;margin-top:2px}
+  .app .side{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+  .app .tot{font-weight:bold;color:var(--orange);font-size:16px}
+  .tag{display:inline-block;background:#eef2fb;color:var(--navy);border-radius:10px;padding:2px 8px;font-size:11px;margin-right:4px}
+  .tag.stk{background:#e6f5ee;color:var(--green)}
+  select,input{border:1px solid #ccc;border-radius:6px;padding:7px;font-size:13px;font-family:inherit}
+  .btn{border:none;border-radius:16px;padding:7px 14px;font-size:12px;cursor:pointer;color:#fff;display:inline-block}
+  .b-wa{background:var(--green)}.b-save{background:var(--navy)}.b-del{background:#c0392b}.b-add{background:var(--orange)}
+  .add{display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr auto;gap:8px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid #ddd}
+  .prow{display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr auto auto;gap:8px;align-items:center;margin-bottom:8px}
+  .prow input,.add input{width:100%}
+  .note{font-size:12px;color:#666;margin-top:10px}
+  @media(max-width:800px){
+    .add,.prow{grid-template-columns:1fr 1fr}
+    .app{grid-template-columns:1fr}.app .side{align-items:flex-start}
+  }
+</style>
+</head>
+<body>
+
+<div class="banner">
+  <h1>NimoCyber Admin</h1>
+  <a href="index.html">View website</a>
+</div>
+
+<div class="wrap">
+  <div id="gate" class="panel center">Checking access...</div>
+
+  <div id="panel" class="hide">
+    <div class="tabs">
+      <button id="tApps" class="on">Applications</button>
+      <button id="tOrders">Orders</button>
+      <button id="tProducts">Products</button>
+    </div>
+
+    <div id="appsView" class="panel">
+      <h2>Service applications</h2>
+      <div id="appsList">Loading...</div>
+    </div>
+
+    <div id="ordView" class="panel hide">
+      <div class="bar">
+        <h2>Orders</h2>
+        <select id="ordFilter">
+          <option value="all">All orders</option>
+          <option value="new">New</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="completed">Completed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+      <div id="ordList">Loading...</div>
+      <div class="note">When you set an order to Confirmed or Completed, you can reduce the stock automatically. If you cancel it later, you can put the items back.</div>
+    </div>
+
+    <div id="prodView" class="panel hide">
+      <h2>Products</h2>
+      <div class="add">
+        <input id="nName" placeholder="Product name" />
+        <input id="nCat" placeholder="Category (e.g. Stationery)" />
+        <input id="nPrice" type="number" min="0" placeholder="Price" />
+        <input id="nStock" type="number" min="0" placeholder="Stock" />
+        <button class="btn b-add" id="addBtn">Add product</button>
+      </div>
+      <div id="prodList">Loading...</div>
+      <div class="note">Prices and stock are whole numbers (KES). Category names must match the menu, for example Paper Supplies, Stationery, Computing, Networking, Organization.</div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { db, auth } from "./assets/js/firebase-config.js";
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { collection, getDocs, getDoc, doc, addDoc, updateDoc, deleteDoc, query, orderBy, increment }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const money = n => "KES " + Number(n).toLocaleString();
+  let orders = {};
+
+  function gate(html) { $("gate").classList.remove("hide"); $("gate").innerHTML = html; $("panel").classList.add("hide"); }
+
+  onAuthStateChanged(auth, async user => {
+    if (!user) {
+      return gate('Please log in to continue.<br><a href="login.html">Go to login</a>');
+    }
+    try {
+      const snap = await getDoc(doc(db, "users", user.uid));
+      if (!snap.exists() || snap.data().role !== "admin") {
+        return gate('Access denied. This page is for the shop admin only.<br><a href="index.html">Back to website</a>');
+      }
+    } catch (e) {
+      return gate("Could not check your access: " + esc(e.message));
+    }
+    $("gate").classList.add("hide");
+    $("panel").classList.remove("hide");
+    loadApps();
+    loadOrders();
+    loadProducts();
+  });
+
+  /* tabs */
+  const views = { tApps: "appsView", tOrders: "ordView", tProducts: "prodView" };
+  Object.keys(views).forEach(t => {
+    $(t).onclick = () => {
+      Object.keys(views).forEach(k => {
+        $(k).classList.toggle("on", k === t);
+        $(views[k]).classList.toggle("hide", k !== t);
+      });
+    };
+  });
+
+  function waLink(phone, text) {
+    let p = String(phone || "").replace(/[^\d]/g, "");
+    if (p.startsWith("0")) p = "254" + p.slice(1);
+    else if (p.length === 9) p = "254" + p;
+    return "https://wa.me/" + p + "?text=" + encodeURIComponent(text);
+  }
+
+  /* applications */
+  async function loadApps() {
+    const list = $("appsList");
+    try {
+      const snap = await getDocs(query(collection(db, "applications"), orderBy("createdAt", "desc")));
+      const fresh = snap.docs.filter(d => (d.data().status || "new") === "new").length;
+      $("tApps").textContent = "Applications" + (fresh ? ` (${fresh} new)` : "");
+      if (snap.empty) { list.textContent = "No applications yet."; return; }
+      list.innerHTML = snap.docs.map(d => {
+        const a = d.data();
+        const when = a.createdAt ? a.createdAt.toDate().toLocaleString() : "";
+        const st = a.status || "new";
+        return `
+          <div class="app">
+            <div>
+              <div class="t">${esc(a.serviceTitle)} - ${esc(a.name)}</div>
+              <div class="meta">Ref ${esc(d.id.slice(0, 6).toUpperCase())} | ${esc(when)} | ${esc(a.phone)}${a.email ? " | " + esc(a.email) : ""}</div>
+            </div>
+            <div class="side">
+              <select data-id="${d.id}">
+                ${["new", "in progress", "done"].map(s => `<option ${s === st ? "selected" : ""}>${s}</option>`).join("")}
+              </select>
+            </div>
+            <div class="d">${esc(a.details)}</div>
+            <div>
+              <a class="btn b-wa" target="_blank" href="${waLink(a.phone, `Hello ${a.name}, this is NimoCyber about your ${a.serviceTitle} application.`)}">WhatsApp</a>
+              <button class="btn b-del" data-delapp="${d.id}">Delete</button>
+            </div>
+          </div>`;
+      }).join("");
+    } catch (e) { list.textContent = "Error: " + e.message; }
+  }
+
+  $("appsList").addEventListener("change", async e => {
+    const sel = e.target.closest("select[data-id]");
+    if (!sel) return;
+    try { await updateDoc(doc(db, "applications", sel.dataset.id), { status: sel.value }); loadApps(); }
+    catch (err) { alert("Could not update: " + err.message); }
+  });
+  $("appsList").addEventListener("click", async e => {
+    const b = e.target.closest("[data-delapp]");
+    if (!b || !confirm("Delete this application?")) return;
+    try { await deleteDoc(doc(db, "applications", b.dataset.delapp)); loadApps(); }
+    catch (err) { alert("Could not delete: " + err.message); }
+  });
+
+  /* orders */
+  async function loadOrders() {
+    try {
+      const snap = await getDocs(query(collection(db, "orders"), orderBy("createdAt", "desc")));
+      orders = {};
+      snap.docs.forEach(d => orders[d.id] = d.data());
+      renderOrders();
+    } catch (e) { $("ordList").textContent = "Error: " + e.message; }
+  }
+
+  function renderOrders() {
+    const all = Object.keys(orders);
+    const fresh = all.filter(id => (orders[id].status || "new") === "new").length;
+    $("tOrders").textContent = "Orders" + (fresh ? ` (${fresh} new)` : "");
+    const f = $("ordFilter").value;
+    const ids = all.filter(id => f === "all" || (orders[id].status || "new") === f);
+    if (!ids.length) { $("ordList").textContent = "No orders found."; return; }
+    $("ordList").innerHTML = ids.map(id => {
+      const o = orders[id];
+      const code = id.slice(0, 6).toUpperCase();
+      const when = o.createdAt ? o.createdAt.toDate().toLocaleString() : "";
+      const st = o.status || "new";
+      const items = (o.items || []).map(i => `${esc(i.name)} x${esc(i.qty)} (${money(i.price * i.qty)})`).join("<br>");
+      const msg = `Hello ${o.name}, this is NimoCyber about your order ${code} (${money(o.total)}).`;
+      return `
+        <div class="app">
+          <div>
+            <div class="t">Order ${esc(code)} - ${esc(o.name)}</div>
+            <div class="meta">${esc(when)} | ${esc(o.phone)}${o.email ? " | " + esc(o.email) : ""}</div>
+            <div class="meta">
+              <span class="tag">${o.method === "delivery" ? "Delivery" : "Pickup"}</span>
+              <span class="tag">${esc(o.payment)}</span>
+              ${o.stockDone ? '<span class="tag stk">Stock reduced</span>' : ""}
+            </div>
+          </div>
+          <div class="side">
+            <div class="tot">${money(o.total)}</div>
+            <select data-oid="${id}">
+              ${["new", "confirmed", "completed", "cancelled"].map(s => `<option ${s === st ? "selected" : ""}>${s}</option>`).join("")}
+            </select>
+          </div>
+          <div class="d">${items}${o.method === "delivery" ? "<br><b>Deliver to:</b> " + esc(o.address) : ""}${o.note ? "<br><b>Note:</b> " + esc(o.note) : ""}</div>
+          <div>
+            <a class="btn b-wa" target="_blank" href="${waLink(o.phone, msg)}">WhatsApp</a>
+            <button class="btn b-del" data-delord="${id}">Delete</button>
+          </div>
+        </div>`;
+    }).join("");
+  }
+
+  $("ordFilter").onchange = renderOrders;
+
+  $("ordList").addEventListener("change", async e => {
+    const sel = e.target.closest("select[data-oid]");
+    if (!sel) return;
+    const id = sel.dataset.oid, o = orders[id];
+    const prev = o.status || "new", next = sel.value;
+    if (next === prev) return;
+    try {
+      const upd = { status: next };
+      if ((next === "confirmed" || next === "completed") && !o.stockDone) {
+        if (confirm("Reduce the stock for the items in this order?")) {
+          for (const it of o.items) await updateDoc(doc(db, "products", it.id), { stock: increment(-it.qty) });
+          upd.stockDone = true;
+        }
+      } else if (next === "cancelled" && o.stockDone) {
+        if (confirm("Put the items from this order back in stock?")) {
+          for (const it of o.items) await updateDoc(doc(db, "products", it.id), { stock: increment(it.qty) });
+          upd.stockDone = false;
+        }
+      }
+      await updateDoc(doc(db, "orders", id), upd);
+      Object.assign(o, upd);
+      renderOrders();
+      loadProducts();
+    } catch (err) {
+      alert("Could not update this order: " + err.message);
+      renderOrders();
+    }
+  });
+
+  $("ordList").addEventListener("click", async e => {
+    const b = e.target.closest("[data-delord]");
+    if (!b || !confirm("Delete this order for good?")) return;
+    try { await deleteDoc(doc(db, "orders", b.dataset.delord)); loadOrders(); }
+    catch (err) { alert("Could not delete: " + err.message); }
+  });
+
+  /* products */
+  async function loadProducts() {
+    const list = $("prodList");
+    try {
+      const snap = await getDocs(collection(db, "products"));
+      if (snap.empty) { list.textContent = "No products yet."; return; }
+      list.innerHTML = snap.docs.map(d => {
+        const p = d.data();
+        return `
+          <div class="prow" data-id="${d.id}">
+            <input class="pn" value="${esc(p.name)}" />
+            <input class="pc" value="${esc(p.category)}" />
+            <input class="pp" type="number" min="0" value="${esc(p.price)}" />
+            <input class="ps" type="number" min="0" value="${esc(p.stock)}" />
+            <button class="btn b-save" data-save="${d.id}">Save</button>
+            <button class="btn b-del" data-delprod="${d.id}">Delete</button>
+          </div>`;
+      }).join("");
+    } catch (e) { list.textContent = "Error: " + e.message; }
+  }
+
+  const whole = v => { const n = parseInt(v, 10); return Number.isFinite(n) && n >= 0 ? n : null; };
+
+  $("addBtn").onclick = async () => {
+    const name = $("nName").value.trim(), category = $("nCat").value.trim();
+    const price = whole($("nPrice").value), stock = whole($("nStock").value);
+    if (!name || !category || price === null || stock === null) {
+      return alert("Please fill in name, category, price and stock (whole numbers).");
+    }
+    try {
+      await addDoc(collection(db, "products"), { name, category, price, stock });
+      ["nName", "nCat", "nPrice", "nStock"].forEach(i => $(i).value = "");
+      loadProducts();
+    } catch (e) { alert("Could not add: " + e.message); }
+  };
+
+  $("prodList").addEventListener("click", async e => {
+    const save = e.target.closest("[data-save]");
+    const del = e.target.closest("[data-delprod]");
+    if (save) {
+      const row = save.closest(".prow");
+      const name = row.querySelector(".pn").value.trim();
+      const category = row.querySelector(".pc").value.trim();
+      const price = whole(row.querySelector(".pp").value);
+      const stock = whole(row.querySelector(".ps").value);
+      if (!name || !category || price === null || stock === null) return alert("Please check the values in this row.");
+      try {
+        await updateDoc(doc(db, "products", save.dataset.save), { name, category, price, stock });
+        save.textContent = "Saved!";
+        setTimeout(() => save.textContent = "Save", 1200);
+      } catch (err) { alert("Could not save: " + err.message); }
+    }
+    if (del && confirm("Delete this product?")) {
+      try { await deleteDoc(doc(db, "products", del.dataset.delprod)); loadProducts(); }
+      catch (err) { alert("Could not delete: " + err.message); }
+    }
+  });
+</script>
+</body>
+</html>

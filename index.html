@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NimoCyber Kenya</title>
+<style>
+  :root{--blue:#2d4fa1;--navy:#253a8c;--orange:#f47b20;--yellow:#fdb913;--green:#00935f;--grey:#e8e8e8}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Arial,Helvetica,sans-serif;color:#111;background:#fff}
+  a{text-decoration:none;color:inherit}
+
+  /* top banner */
+  .banner{background:var(--blue);color:#fff;display:flex;align-items:center;gap:30px;padding:14px 50px;flex-wrap:wrap}
+  .banner h1{font-size:34px;font-weight:800;letter-spacing:.5px}
+  .banner .pill{background:#fff;color:#111;font-size:26px;padding:6px 40px;border-radius:30px}
+  .banner small{font-size:16px}
+  /* grey bar */
+  .greybar{background:var(--grey);display:flex;align-items:center;padding:12px 50px;gap:60px;flex-wrap:wrap}
+  .greybar .l{color:var(--orange);font-weight:bold;font-size:13px}
+  .greybar .c{color:var(--orange);font-weight:bold;font-size:20px}
+  .greybar .t{font-weight:bold;font-size:15px}
+  /* header row */
+  .head{display:flex;align-items:center;gap:30px;padding:14px 50px;flex-wrap:wrap}
+  .brand{color:var(--blue);font-weight:800;font-size:26px;line-height:1}
+  .search{flex:1;min-width:260px;background:var(--grey);border-radius:30px;display:flex;align-items:center;padding:6px 8px 6px 20px;gap:10px}
+  .search img{width:20px}
+  .search input{flex:1;border:none;background:transparent;font-size:15px;outline:none}
+  .search button{background:var(--orange);color:#fff;border:none;border-radius:24px;padding:12px 26px;font-size:15px;cursor:pointer}
+  .actions{display:flex;align-items:center;gap:26px;font-size:18px}
+  .actions a{display:flex;align-items:center;gap:8px}
+  .actions img{width:24px}
+  .actions .chev{font-size:12px}
+  /* category menu */
+  .cats{display:flex;justify-content:space-between;gap:18px;padding:12px 30px 14px;overflow-x:auto;white-space:nowrap}
+  .cats a{display:flex;align-items:center;gap:7px;font-size:14px}
+  .cats img,.cats svg{height:16px;width:auto}
+  /* hero slider */
+  .sliderwrap{background:var(--grey);padding:16px 20px 20px}
+  .slider{position:relative;background:#fff;border-radius:34px;overflow:hidden;height:430px;max-width:1500px;margin:auto}
+  .slide{position:absolute;inset:0;opacity:0;transition:opacity .5s;pointer-events:none}
+  .slide.active{opacity:1;pointer-events:auto}
+  .blue{position:absolute;left:0;top:0;bottom:0;width:58%;background:var(--blue);clip-path:polygon(0 0,100% 0,89% 100%,0 100%);color:#fff;padding:55px 50px}
+  .blue h2{font-size:64px;font-style:italic;font-weight:800;line-height:1.1;text-transform:uppercase}
+  .blue .tag{display:inline-block;background:var(--orange);border-radius:24px;padding:8px 18px;font-size:22px;margin-top:50px}
+  .blue p{font-size:21px;margin-top:20px}
+  .heroimg{position:absolute;right:3%;top:50%;transform:translateY(-50%);width:38%;max-height:90%;object-fit:contain}
+  .arrow{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;border:1px solid #333;background:#fff;cursor:pointer;font-size:20px;z-index:3}
+  .arrow.prev{left:0}.arrow.next{right:0}
+  .dots{position:absolute;bottom:20px;left:42%;display:flex;gap:10px;z-index:3}
+  .dots span{width:14px;height:14px;border-radius:50%;border:1px solid #333;background:#fff;cursor:pointer}
+.slider{position:relative;background:#fff;border-radius:34px;overflow:hidden;height:430px;margin:auto}
+  /* welcome + logos + services */
+  .wrap{max-width:1100px;margin:auto;padding:30px 20px}
+  .welcome{background:var(--navy);color:#fff;text-align:center;padding:60px 20px}
+  .welcome h2{font-size:34px}
+  .welcome p{font-weight:bold;font-size:15px;margin:8px 0 22px}
+  .btn{display:inline-block;background:var(--yellow);color:#fff;border-radius:20px;padding:10px 24px;font-size:14px}
+  .welcome .btn{color:#111}
+  .logos{background:#f4f5f4;display:flex;justify-content:center;gap:16px;padding:18px;flex-wrap:wrap}
+  .logos div{background:#fff;border-radius:12px;width:120px;height:68px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11px;font-weight:bold}
+  .logos img{max-height:30px;max-width:95px}
+  h2.title{text-align:center;font-size:30px;margin:40px 0 14px}
+  .cards{background:#f4f5f4;padding:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+  .card{background:#fff;padding:16px 14px;text-align:center;display:flex;flex-direction:column;align-items:center}
+  .card img{height:32px;max-width:120px;object-fit:contain;margin-bottom:10px}
+  .card h3{font-size:14px;margin-bottom:6px}
+  .card p{font-size:11px;color:#333;margin-bottom:14px;flex:1}
+  .card .b{display:flex;gap:8px}
+  .card .b a{color:#fff;font-size:11px;border-radius:16px;padding:8px 14px}
+  .apply{background:var(--navy)}.wa{background:var(--green)}
+  .more{display:flex;justify-content:space-between;align-items:center;margin-top:24px;flex-wrap:wrap;gap:12px}
+  @media(max-width:800px){
+    .banner,.greybar,.head{padding-left:16px;padding-right:16px;gap:14px}
+    .banner h1{font-size:22px}.banner .pill{font-size:18px;padding:4px 20px}
+    .slider{height:520px}
+    .blue{width:100%;clip-path:none;padding:30px 20px}
+    .blue h2{font-size:34px}.blue .tag{font-size:14px;margin-top:20px}.blue p{font-size:15px}
+    .heroimg{width:70%;top:auto;bottom:40px;right:15%;transform:none;max-height:38%}
+    .dots{left:50%;transform:translateX(-50%)}
+  }
+</style>
+</head>
+<body>
+
+<div class="banner">
+  <h1>NIMO CYBER &amp; ACCESSORIES</h1>
+  <span class="pill">60% off</span>
+  <small>Limited quantity</small>
+</div>
+
+<div class="greybar">
+  <span class="l">Cyber Services &amp; Sell Accessories on Nimo</span>
+  <span class="c">NIMO CYBER</span>
+  <span class="t">PAY</span>
+  <span class="t">DELIVERY</span>
+</div>
+
+<div class="head">
+  <a class="brand" href="index.html">NIMO CYBER &amp;<br>ACCESSORIES</a>
+  <form class="search" action="products.html">
+    <img src="assets/images/icon-search.png" alt="">
+    <input type="text" name="q" placeholder="Search products,cyber services and accessories" />
+    <button type="submit">Search</button>
+  </form>
+  <div class="actions">
+    <a href="login.html" id="accountLink"><img src="assets/images/icon-account.png" alt="">Account <span class="chev">&#9013;</span></a>
+    <a href="#"><img src="assets/images/icon-help.png" alt="">Help <span class="chev">&#9013;</span></a>
+    <a href="cart.html"><img src="assets/images/icon-cart.png" alt="">Cart</a>
+  </div>
+</div>
+
+<nav class="cats">
+  <a href="#services"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><path d="M3 10l9-6 9 6M5 10v9M19 10v9M9 19v-6M15 19v-6M3 19h18"/></svg>Government &amp; Digital Portals</a>
+  <a href="products.html"><img src="assets/images/icon-gear.png" alt="">Document Processing</a>
+  <a href="products.html"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>Finishing Services</a>
+  <a href="products.html"><img src="assets/images/icon-wrench.png" alt="">Maintenance</a>
+  <a href="products.html"><img src="assets/images/icon-paper.png" alt="">Paper Supplies</a>
+  <a href="products.html"><img src="assets/images/icon-document.png" alt="">Organization</a>
+  <a href="products.html"><img src="assets/images/icon-pencil-cup.png" alt="">Stationery</a>
+  <a href="products.html"><img src="assets/images/icon-monitor.png" alt="">Computing</a>
+  <a href="products.html"><img src="assets/images/icon-globe.png" alt="">Networking</a>
+</nav>
+
+<div class="sliderwrap">
+  <div class="slider" id="slider">
+    <!-- Slide 1 is from your PDF. Slides 2 and 3 are samples: edit or delete them. -->
+    <div class="slide active">
+      <div class="blue">
+        <h2>Your digital world,<br>all in one place</h2>
+        <span class="tag">CYBER CAFÉ • PRINTING • ONLINE SERVICES • ACCESSORIES</span>
+        <p>Fast Service | Quality Printing | Affordable Accessories</p>
+      </div>
+      <img class="heroimg" src="assets/images/hero-products.png" alt="Stationery and accessories">
+    </div>
+    <div class="slide">
+      <div class="blue">
+        <h2>Government services,<br>made easy</h2>
+        <span class="tag">KRA • SHA • NSSF • ETIMS</span>
+        <p>Apply online or chat with us on WhatsApp</p>
+      </div>
+      <img class="heroimg" src="assets/images/hero-products.png" alt="">
+    </div>
+    <div class="slide">
+      <div class="blue">
+        <h2>Quality printing,<br>fast delivery</h2>
+        <span class="tag">PRINTING • PAPER • STATIONERY</span>
+        <p>Affordable accessories for office and school</p>
+      </div>
+      <img class="heroimg" src="assets/images/hero-products.png" alt="">
+    </div>
+    <button class="arrow prev" id="prev">&#10094;</button>
+    <button class="arrow next" id="next">&#10095;</button>
+    <div class="dots" id="dots"></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="welcome">
+    <h2>Welcome to NimoCyber Kenya</h2>
+    <p>Fast internet,printing,and digital services for the kenya community</p>
+    <a class="btn" href="#services">Explore services</a>
+  </div>
+
+  <div class="logos">
+    <div><img src="assets/images/logo-kra-wide.png" alt="KRA">KRA</div>
+    <div><img src="assets/images/logo-ecitizen.png" alt="eCitizen">ECITIZEN</div>
+    <div><img src="assets/images/logo-sha.png" alt="SHA">SHA</div>
+    <div><img src="assets/images/logo-good-conduct.png" alt="Good Conduct">GOOD CONDUCT</div>
+  </div>
+
+  <h2 class="title" id="services">Our Services</h2>
+  <div class="cards" id="servicesGrid">Loading services...</div>
+
+  <div class="more">
+    <a class="btn" href="#">View All Services</a>
+    <a class="btn" href="#services">Explore Our Services</a>
+  </div>
+</div>
+
+<script>
+  /* slider */
+  const slides = document.querySelectorAll(".slide");
+  const dots = document.getElementById("dots");
+  let i = 0, timer;
+  slides.forEach((_, n) => {
+    const d = document.createElement("span");
+    d.onclick = () => go(n);
+    dots.appendChild(d);
+  });
+  function go(n) {
+    i = (n + slides.length) % slides.length;
+    slides.forEach((s, k) => s.classList.toggle("active", k === i));
+    [...dots.children].forEach((d, k) => d.classList.toggle("on", k === i));
+    clearInterval(timer);
+    timer = setInterval(() => go(i + 1), 5000);
+  }
+  document.getElementById("prev").onclick = () => go(i - 1);
+  document.getElementById("next").onclick = () => go(i + 1);
+  go(0);
+</script>
+
+<script type="module">
+  import { db } from "./assets/js/firebase-config.js";
+  import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const grid = document.getElementById("servicesGrid");
+  const order = ["KRA", "SHA", "NSSF", "ETIMS"];
+  const logos = {
+    KRA: "logo-kra.png", SHA: "logo-sha.png",
+    NSSF: "logo-nssf.png", ETIMS: "logo-etims.png"
+  };
+  const keyOf = t => order.find(k => (t || "").toUpperCase().includes(k));
+
+  try {
+    const snap = await getDocs(collection(db, "services"));
+    const list = snap.docs.map(d => d.data());
+    list.sort((a, b) => order.indexOf(keyOf(a.title)) - order.indexOf(keyOf(b.title)));
+    grid.innerHTML = list.map(s => {
+      const k = keyOf(s.title);
+      const img = k ? `<img src="assets/images/${logos[k]}" alt="">` : "";
+      return `
+        <div class="card">
+          ${img}
+          <h3>${s.title}</h3>
+          <p>${s.description}</p>
+          <div class="b">
+            <a class="apply" href="apply.html?service=${encodeURIComponent(s.title)}">Apply Now</a>
+            <a class="wa" href="${s.whatsapp}" target="_blank">WhatsApp</a>
+          </div>
+        </div>`;
+    }).join("") || "No services yet.";
+  } catch (e) {
+    grid.textContent = "Error: " + e.message;
+  }
+</script>
+<script type="module" src="assets/js/account.js"></script>
+</body>
+</html>
