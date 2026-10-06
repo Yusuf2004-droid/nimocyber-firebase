@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -49,7 +49,6 @@
   font-weight:bold;
   color:#444;
 }
-
 .imagePreview{
   width:90px;
   height:90px;
@@ -59,8 +58,7 @@
   background:#fff;
   padding:4px;
 }
-
-    
+  
   @media(max-width:800px){
     .add,.prow{grid-template-columns:1fr 1fr}
     .app{grid-template-columns:1fr}.app .side{align-items:flex-start}
@@ -168,7 +166,6 @@
     loadProducts();
   });
 
-  /* tabs */
   const views = { tApps: "appsView", tOrders: "ordView", tProducts: "prodView" };
   Object.keys(views).forEach(t => {
     $(t).onclick = () => {
@@ -186,7 +183,6 @@
     return "https://wa.me/" + p + "?text=" + encodeURIComponent(text);
   }
 
-  /* applications */
   async function loadApps() {
     const list = $("appsList");
     try {
@@ -232,7 +228,6 @@
     catch (err) { alert("Could not delete: " + err.message); }
   });
 
-  /* orders */
   async function loadOrders() {
     try {
       const snap = await getDocs(query(collection(db, "orders"), orderBy("createdAt", "desc")));
@@ -320,7 +315,6 @@
     catch (err) { alert("Could not delete: " + err.message); }
   });
 
-  /* products */
   async function loadProducts() {
     const list = $("prodList");
     try {

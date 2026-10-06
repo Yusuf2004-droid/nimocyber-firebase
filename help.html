@@ -209,13 +209,12 @@
 </div>
 
 <script>
-  /* cart count */
+
   try {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     document.getElementById("cartCount").textContent = cart.reduce((n, i) => n + (i.qty || 0), 0);
   } catch (e) {}
 
-  /* FAQ accordion */
   document.querySelectorAll(".faqQuestion").forEach(q => {
     q.addEventListener("click", () => {
       const item = q.closest(".faqItem");
@@ -227,7 +226,7 @@
 </script>
 <script src="assets/js/site.js"></script>
 <script>
-  /* use the real WhatsApp number from site.js */
+
   if (window.NIMO_CONFIG) {
     document.querySelectorAll("[data-wa]").forEach(a => {
       a.href = "https://wa.me/" + window.NIMO_CONFIG.whatsapp + "?text=" + encodeURIComponent("Hello NimoCyber, I need help.");

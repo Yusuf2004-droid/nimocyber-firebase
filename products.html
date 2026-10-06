@@ -10,7 +10,6 @@
   body{font-family:Arial,Helvetica,sans-serif;color:#111;background:#fff}
   a{text-decoration:none;color:inherit}
 
-  /* top banner and grey bar */
   .banner{background:var(--blue);color:#fff;display:flex;align-items:center;gap:30px;padding:14px 50px;flex-wrap:wrap}
   .banner h1{font-size:34px;font-weight:800;letter-spacing:.5px}
   .banner .pill{background:#fff;color:#111;font-size:26px;padding:6px 40px;border-radius:30px}
@@ -20,7 +19,6 @@
   .greybar .c{color:var(--orange);font-weight:bold;font-size:20px}
   .greybar .t{font-weight:bold;font-size:15px}
 
-  /* header row */
   .head{display:flex;align-items:center;gap:30px;padding:14px 50px;flex-wrap:wrap}
   .brand{color:var(--blue);font-weight:800;font-size:26px;line-height:1}
   .search{flex:1;min-width:260px;background:var(--grey);border-radius:30px;display:flex;align-items:center;padding:6px 8px 6px 20px;gap:10px}
@@ -32,12 +30,10 @@
   .actions img{width:24px}
   .actions .chev{font-size:12px}
 
-  /* category menu */
   .cats{display:flex;justify-content:space-between;gap:18px;padding:12px 30px 14px;overflow-x:auto;white-space:nowrap;border-bottom:1px solid #eee}
   .cats a{display:flex;align-items:center;gap:7px;font-size:14px}
   .cats img,.cats svg{height:16px;width:auto}
 
-  /* shop layout: categories on the left, products on the right */
   .shop{display:flex;align-items:flex-start;max-width:1200px;margin:0 auto;background:#f4f5f4;min-height:60vh}
   .side{width:200px;flex:none;position:sticky;top:0;max-height:100vh;overflow-y:auto;background:#fff;border-right:1px solid #eee}
   .side button{display:block;width:100%;text-align:left;border:none;background:#fff;padding:16px 14px;font-size:14px;cursor:pointer;border-bottom:1px solid #eee;border-left:4px solid transparent;color:#222;font-family:inherit}
@@ -48,7 +44,6 @@
   .mhead h2{font-size:18px}
   .mhead span{font-size:12px;color:#666}
 
-  /* product tiles */
   .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
   .pc{background:#fff;border-radius:8px;padding:10px;display:flex;flex-direction:column;overflow:hidden}
   .pc .img{background:#f1f1f1;border-radius:6px;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;margin-bottom:8px;overflow:hidden}
@@ -134,13 +129,11 @@
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
-  /* categories, in the same order as the menu */
   const MENU = ["Document Processing", "Finishing Services", "Maintenance", "Paper Supplies",
                 "Organization", "Stationery", "Computing", "Networking"];
   const pretty = s => MENU.find(x => norm(x) === norm(s)) ||
     String(s || "").trim().replace(/\b\w/g, c => c.toUpperCase());
 
-  /* icons used when a product has no photo yet */
   const ICONS = {
     "paper supplies": "icon-paper.png", "stationery": "icon-pencil-cup.png",
     "computing": "icon-monitor.png", "networking": "icon-globe.png",
@@ -148,13 +141,11 @@
     "document processing": "icon-gear.png"
   };
 
-  /* page state */
   let products = [];
   let current = params.get("category") ? norm(params.get("category")) : "all";
   let query = (params.get("q") || "").trim().toLowerCase();
   $("q").value = params.get("q") || "";
 
-  /* cart */
   function getCart() {
     try { return JSON.parse(localStorage.getItem("cart")) || []; }
     catch { return []; }
@@ -176,7 +167,6 @@
     setTimeout(() => { btn.textContent = "Add to Cart"; btn.classList.remove("added"); }, 1200);
   };
 
-  /* left category list */
   function renderSide() {
     const counts = {};
     products.forEach(p => { const k = norm(p.category); counts[k] = (counts[k] || 0) + 1; });
@@ -190,7 +180,6 @@
       keys.map(k => `<button data-k="${esc(k)}" class="${k === current ? "on" : ""}">${esc(pretty(k))}<small>${label(counts[k] || 0)}</small></button>`).join("");
   }
 
-  /* product tiles: real photo if saved, otherwise the category icon */
   function tileImage(p) {
     if (p.image) return `<img class="photo" src="${esc(p.image)}" alt="${esc(p.name)}" loading="lazy">`;
     const icon = ICONS[norm(p.category)] || "icon-gear.png";
@@ -218,7 +207,6 @@
       `<div class="none">No products ${current === "all" ? "" : "in " + esc(pretty(current)) + " "}yet.</div>`;
   }
 
-  /* category click */
   $("side").addEventListener("click", e => {
     const b = e.target.closest("button[data-k]");
     if (!b) return;
@@ -231,7 +219,6 @@
     window.scrollTo({ top: document.querySelector(".shop").offsetTop - 10, behavior: "smooth" });
   });
 
-  /* start */
   updateCount();
   try {
     const snap = await getDocs(collection(db, "products"));

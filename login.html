@@ -188,9 +188,6 @@
   show("Please wait...");
 
   try {
-    /* =========================
-       REGISTER
-       ========================= */
     if (mode === "register") {
 
       const cred = await createUserWithEmailAndPassword(auth, email, pass);
@@ -214,10 +211,6 @@
 
       return;
     }
-
-    /* =========================
-       LOGIN
-       ========================= */
     const cred = await signInWithEmailAndPassword(
       auth,
       email,
@@ -239,9 +232,6 @@
 
     const userData = userDoc.data();
 
-    /* =========================
-       ADMIN LOGIN
-       ========================= */
     if (userData.role === "admin") {
 
       show("Admin login successful. Opening dashboard...", "ok");
@@ -251,10 +241,6 @@
       }, 900);
 
     }
-
-    /* =========================
-       CUSTOMER LOGIN
-       ========================= */
     else {
 
       show("Login successful.", "ok");
