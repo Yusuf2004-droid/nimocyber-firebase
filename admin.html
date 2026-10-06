@@ -38,6 +38,29 @@
   .prow{display:grid;grid-template-columns:2fr 1.5fr 1fr 1fr auto auto;gap:8px;align-items:center;margin-bottom:8px}
   .prow input,.add input{width:100%}
   .note{font-size:12px;color:#666;margin-top:10px}
+  .imageBox{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  font-size:12px;
+}
+
+.imageBox label{
+  font-weight:bold;
+  color:#444;
+}
+
+.imagePreview{
+  width:90px;
+  height:90px;
+  object-fit:contain;
+  border:1px solid #ddd;
+  border-radius:8px;
+  background:#fff;
+  padding:4px;
+}
+
+    
   @media(max-width:800px){
     .add,.prow{grid-template-columns:1fr 1fr}
     .app{grid-template-columns:1fr}.app .side{align-items:flex-start}
@@ -85,9 +108,25 @@
       <h2>Products</h2>
       <div class="add">
         <input id="nName" placeholder="Product name" />
-        <input id="nCat" placeholder="Category (e.g. Stationery)" />
+        <select id="nCat">
+  <option value="">Select category</option>
+  <option value="Government & Digital Portals">Government & Digital Portals</option>
+  <option value="Document Processing">Document Processing</option>
+  <option value="Finishing Services">Finishing Services</option>
+  <option value="Maintenance">Maintenance</option>
+  <option value="Paper Supplies">Paper Supplies</option>
+  <option value="Organization">Organization</option>
+  <option value="Stationery">Stationery</option>
+  <option value="Computing">Computing</option>
+  <option value="Networking">Networking</option>
+</select>
         <input id="nPrice" type="number" min="0" placeholder="Price" />
         <input id="nStock" type="number" min="0" placeholder="Stock" />
+        <div class="imageBox">
+  <label for="nImage">Product image</label>
+  <input id="nImage" type="file" accept="image/*" />
+  <img id="imagePreview" class="imagePreview hide" alt="Product preview" />
+</div>
         <button class="btn b-add" id="addBtn">Add product</button>
       </div>
       <div id="prodList">Loading...</div>
@@ -303,20 +342,85 @@
   }
 
   const whole = v => { const n = parseInt(v, 10); return Number.isFinite(n) && n >= 0 ? n : null; };
+  let selectedImage = "";
 
-  $("addBtn").onclick = async () => {
-    const name = $("nName").value.trim(), category = $("nCat").value.trim();
-    const price = whole($("nPrice").value), stock = whole($("nStock").value);
-    if (!name || !category || price === null || stock === null) {
-      return alert("Please fill in name, category, price and stock (whole numbers).");
-    }
-    try {
-      await addDoc(collection(db, "products"), { name, category, price, stock });
-      ["nName", "nCat", "nPrice", "nStock"].forEach(i => $(i).value = "");
-      loadProducts();
-    } catch (e) { alert("Could not add: " + e.message); }
+$("nImage").addEventListener("change", () => {
+  const file = $("nImage").files[0];
+
+  if (!file) {
+    selectedImage = "";
+    $("imagePreview").classList.add("hide");
+    return;
+  }
+
+  if (!file.type.startsWith("image/")) {
+    alert("Please select an image file.");
+    $("nImage").value = "";
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = e => {
+    selectedImage = e.target.result;
+
+    $("imagePreview").src = selectedImage;
+    $("imagePreview").classList.remove("hide");
   };
 
+  reader.readAsDataURL(file);
+});
+
+  $("addBtn").onclick = async () => {
+
+  const name = $("nName").value.trim();
+  const category = $("nCat").value;
+
+  const price = whole($("nPrice").value);
+  const stock = whole($("nStock").value);
+
+  if (!name || !category || price === null || stock === null) {
+    return alert("Please fill in name, category, price and stock.");
+  }
+
+  try {
+
+    $("addBtn").disabled = true;
+    $("addBtn").textContent = "Adding...";
+
+    await addDoc(collection(db, "products"), {
+      name,
+      category,
+      price,
+      stock,
+      image: selectedImage || ""
+    });
+
+    $("nName").value = "";
+    $("nCat").value = "";
+    $("nPrice").value = "";
+    $("nStock").value = "";
+    $("nImage").value = "";
+
+    selectedImage = "";
+
+    $("imagePreview").src = "";
+    $("imagePreview").classList.add("hide");
+
+    $("addBtn").disabled = false;
+    $("addBtn").textContent = "Add product";
+
+    loadProducts();
+
+  } catch (e) {
+
+    $("addBtn").disabled = false;
+    $("addBtn").textContent = "Add product";
+
+    alert("Could not add: " + e.message);
+  }
+};
+  
   $("prodList").addEventListener("click", async e => {
     const save = e.target.closest("[data-save]");
     const del = e.target.closest("[data-delprod]");
