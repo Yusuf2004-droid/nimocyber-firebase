@@ -76,7 +76,7 @@
   </form>
   <div class="actions">
     <a href="login.html"><img src="assets/images/icon-account.png" alt="">Account <span class="chev">&#9013;</span></a>
-    <a href="#"><img src="assets/images/icon-help.png" alt="">Help <span class="chev">&#9013;</span></a>
+    <a href="help.html"><img src="assets/images/icon-help.png" alt="">Help <span class="chev">&#9013;</span></a>
     <a href="cart.html"><img src="assets/images/icon-cart.png" alt="">Cart (<span id="cartCount">0</span>)</a>
   </div>
 </div>
@@ -126,9 +126,9 @@
   import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut,
            updateProfile, onAuthStateChanged }
     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-  import { doc, setDoc, serverTimestamp }
-    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
+    import { doc, setDoc, getDoc, serverTimestamp }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  
   const $ = id => document.getElementById(id);
   let mode = "login";
 
@@ -170,31 +170,108 @@
   $("tabReg").onclick = () => setMode("register");
 
   $("go").onclick = async () => {
-    const email = $("email").value.trim();
-    const pass = $("pass").value;
-    const name = $("name").value.trim();
-    if (!email || !pass) { show("Please enter your email and password.", "err"); return; }
-    if (mode === "register" && !name) { show("Please enter your full name.", "err"); return; }
-    $("go").disabled = true;
-    show("Please wait...");
-    try {
-      if (mode === "register") {
-        const cred = await createUserWithEmailAndPassword(auth, email, pass);
-        await updateProfile(cred.user, { displayName: name });
-        await setDoc(doc(db, "users", cred.user.uid), {
-          name, email, role: "customer", createdAt: serverTimestamp()
-        });
-        show("Account created. Welcome!", "ok");
-      } else {
-        await signInWithEmailAndPassword(auth, email, pass);
-        show("Logged in.", "ok");
-      }
-      setTimeout(() => { location.href = "index.html"; }, 900);
-    } catch (e) {
-      show(friendly(e.code), "err");
-      $("go").disabled = false;
+  const email = $("email").value.trim();
+  const pass = $("pass").value;
+  const name = $("name").value.trim();
+
+  if (!email || !pass) {
+    show("Please enter your email and password.", "err");
+    return;
+  }
+
+  if (mode === "register" && !name) {
+    show("Please enter your full name.", "err");
+    return;
+  }
+
+  $("go").disabled = true;
+  show("Please wait...");
+
+  try {
+    /* =========================
+       REGISTER
+       ========================= */
+    if (mode === "register") {
+
+      const cred = await createUserWithEmailAndPassword(auth, email, pass);
+
+      await updateProfile(cred.user, {
+        displayName: name
+      });
+
+      await setDoc(doc(db, "users", cred.user.uid), {
+        name,
+        email,
+        role: "customer",
+        createdAt: serverTimestamp()
+      });
+
+      show("Account created. Welcome!", "ok");
+
+      setTimeout(() => {
+        location.href = "index.html";
+      }, 900);
+
+      return;
     }
-  };
+
+    /* =========================
+       LOGIN
+       ========================= */
+    const cred = await signInWithEmailAndPassword(
+      auth,
+      email,
+      pass
+    );
+
+    /* Get the user's profile from Firestore */
+    const userDoc = await getDoc(
+      doc(db, "users", cred.user.uid)
+    );
+
+    /* Make sure the profile exists */
+    if (!userDoc.exists()) {
+      show("User profile not found.", "err");
+      await signOut(auth);
+      $("go").disabled = false;
+      return;
+    }
+
+    const userData = userDoc.data();
+
+    /* =========================
+       ADMIN LOGIN
+       ========================= */
+    if (userData.role === "admin") {
+
+      show("Admin login successful. Opening dashboard...", "ok");
+
+      setTimeout(() => {
+        location.href = "admin.html";
+      }, 900);
+
+    }
+
+    /* =========================
+       CUSTOMER LOGIN
+       ========================= */
+    else {
+
+      show("Login successful.", "ok");
+
+      setTimeout(() => {
+        location.href = "index.html";
+      }, 900);
+
+    }
+
+  } catch (e) {
+
+    show(friendly(e.code), "err");
+    $("go").disabled = false;
+
+  }
+};
 
   $("logout").onclick = async () => { await signOut(auth); };
 

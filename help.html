@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Help &amp; Support - NimoCyber Kenya</title>
+<style>
+  :root{--blue:#2d4fa1;--navy:#253a8c;--orange:#f47b20;--yellow:#fdb913;--green:#00935f;--grey:#e8e8e8;--light:#f4f5f4}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:Arial,Helvetica,sans-serif;color:#111;background:#fff;line-height:1.5}
+  a{text-decoration:none;color:inherit}
+
+  .banner{background:var(--blue);color:#fff;display:flex;align-items:center;gap:30px;padding:14px 50px;flex-wrap:wrap}
+  .banner h1{font-size:34px;font-weight:800;letter-spacing:.5px}
+  .banner .pill{background:#fff;color:#111;font-size:26px;padding:6px 40px;border-radius:30px}
+  .banner small{font-size:16px}
+  .greybar{background:var(--grey);display:flex;align-items:center;padding:12px 50px;gap:60px;flex-wrap:wrap}
+  .greybar .l{color:var(--orange);font-weight:bold;font-size:13px}
+  .greybar .c{color:var(--orange);font-weight:bold;font-size:20px}
+  .greybar .t{font-weight:bold;font-size:15px}
+  .head{display:flex;align-items:center;gap:30px;padding:14px 50px;flex-wrap:wrap}
+  .brand{color:var(--blue);font-weight:800;font-size:26px;line-height:1}
+  .search{flex:1;min-width:260px;background:var(--grey);border-radius:30px;display:flex;align-items:center;padding:6px 8px 6px 20px;gap:10px}
+  .search img{width:20px}
+  .search input{flex:1;border:none;background:transparent;font-size:15px;outline:none}
+  .search button{background:var(--orange);color:#fff;border:none;border-radius:24px;padding:12px 26px;font-size:15px;cursor:pointer}
+  .actions{display:flex;align-items:center;gap:26px;font-size:18px}
+  .actions a{display:flex;align-items:center;gap:8px}
+  .actions img{width:24px}
+  .actions .chev{font-size:12px}
+  .cats{display:flex;justify-content:space-between;gap:18px;padding:12px 30px 14px;overflow-x:auto;white-space:nowrap;border-bottom:1px solid #eee}
+  .cats a{display:flex;align-items:center;gap:7px;font-size:14px}
+  .cats img,.cats svg{height:16px;width:auto}
+
+  .helpHero{background:var(--navy);color:#fff;text-align:center;padding:55px 20px}
+  .helpHero h2{font-size:38px;margin-bottom:10px}
+  .helpHero p{font-size:16px;max-width:700px;margin:auto}
+  .wrap{max-width:1100px;margin:auto;padding:30px 20px 50px}
+
+  .quick{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:35px}
+  .quickCard{background:var(--light);border-radius:12px;padding:24px 18px;text-align:center}
+  .quickIcon{width:55px;height:55px;margin:0 auto 12px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px}
+  .quickCard h3{color:var(--navy);font-size:17px;margin-bottom:7px}
+  .quickCard p{font-size:13px;color:#555;margin-bottom:15px}
+  .quickCard a{display:inline-block;background:var(--orange);color:#fff;padding:9px 18px;border-radius:20px;font-size:12px}
+
+  .title{text-align:center;font-size:30px;margin:35px 0 18px;scroll-margin-top:20px}
+  .faq{max-width:900px;margin:auto}
+  .faqItem{border:1px solid #ddd;border-radius:10px;margin-bottom:10px;overflow:hidden;background:#fff}
+  .faqQuestion{width:100%;border:none;background:#fff;padding:17px 20px;text-align:left;font-size:15px;font-weight:bold;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:15px}
+  .faqQuestion:hover{background:#f8f8f8}
+  .faqQuestion span{color:var(--orange);font-size:20px;transition:.2s}
+  .faqAnswer{display:none;padding:0 20px 18px;color:#444;font-size:14px}
+  .faqItem.open .faqAnswer{display:block}
+  .faqItem.open .faqQuestion span{transform:rotate(45deg)}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .step{background:var(--light);border-radius:12px;padding:22px 18px}
+  .number{width:36px;height:36px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold;margin-bottom:12px}
+  .step h3{font-size:16px;margin-bottom:7px}
+  .step p{font-size:13px;color:#444}
+
+  .contact{background:var(--navy);color:#fff;border-radius:14px;padding:35px 25px;margin-top:40px;text-align:center;scroll-margin-top:20px}
+  .contact h2{font-size:28px;margin-bottom:8px}
+  .contact p{font-size:14px;margin-bottom:22px}
+  .contactButtons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+  .contactButtons a{display:inline-block;padding:11px 22px;border-radius:22px;font-size:13px;font-weight:bold}
+  .whatsapp{background:var(--green);color:#fff}
+  .home{background:var(--yellow);color:#111}
+
+  @media(max-width:800px){
+    .banner,.greybar,.head{padding-left:16px;padding-right:16px;gap:14px}
+    .banner h1{font-size:22px}.banner .pill{font-size:18px;padding:4px 20px}
+    .helpHero{padding:40px 18px}.helpHero h2{font-size:30px}
+    .quick,.steps{grid-template-columns:1fr}
+    .title{font-size:25px}
+  }
+  @media(max-width:500px){
+    .search{min-width:100%}.search button{padding:10px 16px}
+    .cats{padding-left:16px;padding-right:16px}
+    .wrap{padding-left:14px;padding-right:14px}
+    .faqQuestion{font-size:14px}.contact h2{font-size:23px}
+  }
+</style>
+</head>
+<body>
+
+<div class="banner">
+  <h1>NIMO CYBER &amp; ACCESSORIES</h1>
+  <span class="pill">60% off</span>
+  <small>Limited quantity</small>
+</div>
+
+<div class="greybar">
+  <span class="l">Cyber Services &amp; Sell Accessories on Nimo</span>
+  <span class="c">NIMO CYBER</span>
+  <span class="t">PAY</span>
+  <span class="t">DELIVERY</span>
+</div>
+
+<div class="head">
+  <a class="brand" href="index.html">NIMO CYBER &amp;<br>ACCESSORIES</a>
+  <form class="search" action="products.html">
+    <img src="assets/images/icon-search.png" alt="">
+    <input type="text" name="q" placeholder="Search products,cyber services and accessories" />
+    <button type="submit">Search</button>
+  </form>
+  <div class="actions">
+    <a href="login.html" id="accountLink"><img src="assets/images/icon-account.png" alt="">Account <span class="chev">&#9013;</span></a>
+    <a href="help.html"><img src="assets/images/icon-help.png" alt="">Help <span class="chev">&#9013;</span></a>
+    <a href="cart.html"><img src="assets/images/icon-cart.png" alt="">Cart (<span id="cartCount">0</span>)</a>
+  </div>
+</div>
+
+<nav class="cats">
+  <a href="index.html#services"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><path d="M3 10l9-6 9 6M5 10v9M19 10v9M9 19v-6M15 19v-6M3 19h18"/></svg>Government &amp; Digital Portals</a>
+  <a href="products.html?category=Document Processing"><img src="assets/images/icon-gear.png" alt="">Document Processing</a>
+  <a href="products.html?category=Finishing Services"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>Finishing Services</a>
+  <a href="products.html?category=Maintenance"><img src="assets/images/icon-wrench.png" alt="">Maintenance</a>
+  <a href="products.html?category=Paper Supplies"><img src="assets/images/icon-paper.png" alt="">Paper Supplies</a>
+  <a href="products.html?category=Organization"><img src="assets/images/icon-document.png" alt="">Organization</a>
+  <a href="products.html?category=Stationery"><img src="assets/images/icon-pencil-cup.png" alt="">Stationery</a>
+  <a href="products.html?category=Computing"><img src="assets/images/icon-monitor.png" alt="">Computing</a>
+  <a href="products.html?category=Networking"><img src="assets/images/icon-globe.png" alt="">Networking</a>
+</nav>
+
+<section class="helpHero">
+  <h2>How Can We Help You?</h2>
+  <p>Find answers to common questions about NimoCyber services, products, orders, accounts, payments and delivery.</p>
+</section>
+
+<div class="wrap">
+
+  <div class="quick">
+    <div class="quickCard">
+      <div class="quickIcon">🛒</div>
+      <h3>Shopping Help</h3>
+      <p>Need help finding products or placing an order?</p>
+      <a href="products.html">Shop Products</a>
+    </div>
+    <div class="quickCard">
+      <div class="quickIcon">💻</div>
+      <h3>Cyber Services</h3>
+      <p>Need help with KRA, SHA, NSSF, eTIMS or other online services?</p>
+      <a href="index.html#services">View Services</a>
+    </div>
+    <div class="quickCard">
+      <div class="quickIcon">📞</div>
+      <h3>Contact Support</h3>
+      <p>Have a question that is not answered here?</p>
+      <a data-wa href="https://wa.me/254700000000?text=Hello%20NimoCyber%2C%20I%20need%20help." target="_blank">WhatsApp Us</a>
+    </div>
+  </div>
+
+  <h2 class="title" id="services">Frequently Asked Questions</h2>
+  <div class="faq">
+    <div class="faqItem"><button class="faqQuestion" type="button">How do I create a NimoCyber account?<span>+</span></button>
+      <div class="faqAnswer">Click the <strong>Account</strong> link at the top of the website, select <strong>Register</strong>, enter your full name, email and password, then create your account.</div></div>
+    <div class="faqItem"><button class="faqQuestion" type="button">How do I log in to my account?<span>+</span></button>
+      <div class="faqAnswer">Open the Account page, enter the email and password you used when registering, and click <strong>Login</strong>.</div></div>
+    <div class="faqItem"><button class="faqQuestion" type="button">How do I buy a product?<span>+</span></button>
+      <div class="faqAnswer">Open the Products page, select the product you want, add it to your cart, review your cart and continue to checkout.</div></div>
+    <div class="faqItem"><button class="faqQuestion" type="button">How do I apply for a cyber service?<span>+</span></button>
+      <div class="faqAnswer">Go to the Services section on the homepage, select the service you need and click <strong>Apply Now</strong>. Fill in the required information and submit your application.</div></div>
+    <div class="faqItem"><button class="faqQuestion" type="button">Which cyber services are available?<span>+</span></button>
+      <div class="faqAnswer">NimoCyber can provide digital and government-related services such as KRA, SHA, NSSF and eTIMS assistance. Available services may change, so check the Services section for the current list.</div></div>
+    <div class="faqItem"><button class="faqQuestion" type="button">Can I contact NimoCyber through WhatsApp?<span>+</span></button>
+      <div class="faqAnswer">Yes. You can contact NimoCyber through WhatsApp for questions about services, products, applications and orders.</div></div>
+    <div class="faqItem"><button class="faqQuestion" type="button">Can I pick up my order instead of receiving delivery?<span>+</span></button>
+      <div class="faqAnswer">Yes. At checkout you can choose to pick up your order in store instead of delivery.</div></div>
+    <div class="faqItem"><button class="faqQuestion" type="button">What should I do if I forget my password?<span>+</span></button>
+      <div class="faqAnswer">If you cannot access your account because you forgot your password, contact NimoCyber support for assistance.</div></div>
+    <div class="faqItem"><button class="faqQuestion" type="button">How can I check my order?<span>+</span></button>
+      <div class="faqAnswer">After placing an order you receive an order number. Keep it with your contact details, and NimoCyber support can tell you the status of your order.</div></div>
+    <div class="faqItem"><button class="faqQuestion" type="button">What if I have a problem with a product or service?<span>+</span></button>
+      <div class="faqAnswer">Contact NimoCyber support and provide your name, order or application reference where applicable, together with a short description of the problem.</div></div>
+  </div>
+
+  <h2 class="title" id="order">How to Use NimoCyber</h2>
+  <div class="steps">
+    <div class="step"><div class="number">1</div><h3>Create an Account</h3>
+      <p>Register for an account so you can use the shopping and service features available on the website.</p></div>
+    <div class="step"><div class="number">2</div><h3>Choose a Product or Service</h3>
+      <p>Browse products or select a cyber service such as KRA, SHA, NSSF or eTIMS assistance.</p></div>
+    <div class="step"><div class="number">3</div><h3>Complete Your Request</h3>
+      <p>Add products to your cart or complete the service application form with the required information.</p></div>
+  </div>
+
+  <h2 class="title" id="delivery">Order &amp; Delivery Help</h2>
+  <div class="steps">
+    <div class="step"><div class="number">A</div><h3>Shopping Cart</h3>
+      <p>Review the products in your cart before continuing to checkout. Make sure the quantities and prices are correct.</p></div>
+    <div class="step"><div class="number">B</div><h3>Checkout</h3>
+      <p>Provide your details and choose pay on pickup or delivery, or M-Pesa, with payment details sent on WhatsApp.</p></div>
+    <div class="step"><div class="number">C</div><h3>Pickup or Delivery</h3>
+      <p>Choose whether you want to collect your order in store or have it delivered to your address.</p></div>
+  </div>
+
+  <div class="contact" id="contact">
+    <h2>Still Need Help?</h2>
+    <p>Our support team can help you with products, cyber services, applications and orders.</p>
+    <div class="contactButtons">
+      <a class="whatsapp" data-wa href="https://wa.me/254700000000?text=Hello%20NimoCyber%2C%20I%20need%20help." target="_blank">Contact Us on WhatsApp</a>
+      <a class="home" href="index.html">Back to Home</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  /* cart count */
+  try {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    document.getElementById("cartCount").textContent = cart.reduce((n, i) => n + (i.qty || 0), 0);
+  } catch (e) {}
+
+  /* FAQ accordion */
+  document.querySelectorAll(".faqQuestion").forEach(q => {
+    q.addEventListener("click", () => {
+      const item = q.closest(".faqItem");
+      const wasOpen = item.classList.contains("open");
+      document.querySelectorAll(".faqItem").forEach(o => o.classList.remove("open"));
+      if (!wasOpen) item.classList.add("open");
+    });
+  });
+</script>
+<script src="assets/js/site.js"></script>
+<script>
+  /* use the real WhatsApp number from site.js */
+  if (window.NIMO_CONFIG) {
+    document.querySelectorAll("[data-wa]").forEach(a => {
+      a.href = "https://wa.me/" + window.NIMO_CONFIG.whatsapp + "?text=" + encodeURIComponent("Hello NimoCyber, I need help.");
+    });
+  }
+</script>
+<script type="module" src="assets/js/account.js"></script>
+</body>
+</html>

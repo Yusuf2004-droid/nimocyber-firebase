@@ -30,29 +30,40 @@
   .actions .chev{font-size:12px}
   .cats{display:flex;justify-content:space-between;gap:18px;padding:12px 30px 14px;overflow-x:auto;white-space:nowrap;border-bottom:1px solid #eee}
   .cats a{display:flex;align-items:center;gap:7px;font-size:14px}
-  .cats a.on{color:var(--blue);font-weight:bold}
   .cats img,.cats svg{height:16px;width:auto}
 
-  .wrap{max-width:1100px;margin:auto;padding:30px 20px}
-  h2.title{text-align:center;font-size:30px;margin-bottom:6px}
-  .info{text-align:center;color:#555;font-size:14px;margin-bottom:18px}
-  .filters{text-align:center;margin-bottom:22px}
-  .filters button{border:1px solid var(--blue);background:#fff;color:var(--blue);padding:7px 16px;border-radius:18px;margin:3px;cursor:pointer;font-size:13px}
-  .filters button.active{background:var(--blue);color:#fff}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
-  .card{background:#f4f5f4;border-radius:10px;padding:18px 14px;text-align:center;display:flex;flex-direction:column;align-items:center}
-  .card .ico{background:#fff;border-radius:10px;width:100%;height:90px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
-  .card .ico img{height:48px}
-  .card h3{font-size:15px;margin-bottom:4px}
-  .card .cat{font-size:12px;color:#666;margin-bottom:8px}
-  .card .price{font-weight:bold;color:var(--orange);font-size:17px;margin-bottom:4px}
-  .card .stock{font-size:12px;color:#444;margin-bottom:12px;flex:1}
-  .card button{background:var(--navy);color:#fff;border:none;padding:9px 20px;border-radius:18px;cursor:pointer;font-size:13px}
-  .card button.added{background:var(--green)}
-  .card button:disabled{background:#aaa;cursor:not-allowed}
+  /* Jumia-style layout: categories on the left, products on the right */
+  .shop{display:flex;align-items:flex-start;max-width:1200px;margin:0 auto;background:#f4f5f4;min-height:60vh}
+  .side{width:200px;flex:none;position:sticky;top:0;max-height:100vh;overflow-y:auto;background:#fff;border-right:1px solid #eee}
+  .side button{display:block;width:100%;text-align:left;border:none;background:#fff;padding:16px 14px;font-size:14px;cursor:pointer;border-bottom:1px solid #eee;border-left:4px solid transparent;color:#222;font-family:inherit}
+  .side button.on{border-left-color:var(--orange);background:#fdf3ea;font-weight:bold}
+  .side small{display:block;color:#888;font-size:11px;font-weight:normal;margin-top:2px}
+  .main{flex:1;padding:14px;min-width:0}
+  .mhead{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+  .mhead h2{font-size:18px}
+  .mhead span{font-size:12px;color:#666}
+  .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+  .pc{background:#fff;border-radius:8px;padding:10px;display:flex;flex-direction:column}
+  .pc .img{background:#f1f1f1;border-radius:6px;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+  .pc .img img{width:42%;max-height:50%;object-fit:contain}
+  
+  .pc h3{font-size:13px;margin-bottom:2px;line-height:1.3}
+  .pc .cat{font-size:11px;color:#777;margin-bottom:4px}
+  .pc .price{font-weight:bold;color:var(--orange);font-size:15px}
+  .pc .stock{font-size:11px;color:#555;margin:2px 0 8px;flex:1}
+  .pc button{background:var(--navy);color:#fff;border:none;padding:9px 10px;border-radius:18px;cursor:pointer;font-size:12px;width:100%}
+  .pc button.added{background:var(--green)}
+  .pc button:disabled{background:#aaa;cursor:not-allowed}
+  .none{grid-column:1/-1;text-align:center;color:#666;padding:40px 10px;font-size:14px}
+
   @media(max-width:800px){
     .banner,.greybar,.head{padding-left:16px;padding-right:16px;gap:14px}
     .banner h1{font-size:22px}.banner .pill{font-size:18px;padding:4px 20px}
+    .side{width:96px}
+    .side button{padding:14px 6px;font-size:12px;text-align:center}
+    .main{padding:10px}
+    .pgrid{grid-template-columns:repeat(2,1fr);gap:8px}
+    .pc{padding:8px}
   }
 </style>
 </head>
@@ -79,13 +90,13 @@
     <button type="submit">Search</button>
   </form>
   <div class="actions">
-    <a href="#"><img src="assets/images/icon-account.png" alt="">Account <span class="chev">&#9013;</span></a>
-    <a href="#"><img src="assets/images/icon-help.png" alt="">Help <span class="chev">&#9013;</span></a>
+    <a href="login.html" id="accountLink"><img src="assets/images/icon-account.png" alt="">Account <span class="chev">&#9013;</span></a>
+    <a href="help.html"><img src="assets/images/icon-help.png" alt="">Help <span class="chev">&#9013;</span></a>
     <a href="cart.html"><img src="assets/images/icon-cart.png" alt="">Cart (<span id="cartCount">0</span>)</a>
   </div>
 </div>
 
-<nav class="cats" id="cats">
+<nav class="cats">
   <a href="index.html#services"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><path d="M3 10l9-6 9 6M5 10v9M19 10v9M9 19v-6M15 19v-6M3 19h18"/></svg>Government &amp; Digital Portals</a>
   <a href="products.html?category=Document Processing"><img src="assets/images/icon-gear.png" alt="">Document Processing</a>
   <a href="products.html?category=Finishing Services"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>Finishing Services</a>
@@ -97,45 +108,45 @@
   <a href="products.html?category=Networking"><img src="assets/images/icon-globe.png" alt="">Networking</a>
 </nav>
 
-<div class="wrap">
-  <h2 class="title">Our Products</h2>
-  <div class="info" id="info"></div>
-  <div class="filters" id="filters"></div>
-  <div class="grid" id="productGrid">Loading products...</div>
+<div class="shop">
+  <aside class="side" id="side"></aside>
+  <main class="main">
+    <div class="mhead"><h2 id="mTitle">All products</h2><span id="mCount"></span></div>
+    <div class="pgrid" id="productGrid">Loading products...</div>
+  </main>
 </div>
 
 <script type="module">
   import { db } from "./assets/js/firebase-config.js";
   import { collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-  const grid = document.getElementById("productGrid");
-  const filters = document.getElementById("filters");
-  const info = document.getElementById("info");
-  const cartCount = document.getElementById("cartCount");
+  const $ = id => document.getElementById(id);
   const params = new URLSearchParams(location.search);
-  const query = (params.get("q") || "").trim().toLowerCase();
-  let current = params.get("category") || "All";
-  let products = [];
-
-  document.getElementById("q").value = params.get("q") || "";
-  document.querySelectorAll("#cats a").forEach(a => {
-    if (current !== "All" && a.href.includes(encodeURIComponent(current))) a.classList.add("on");
-  });
-
-  const icons = {
-    "Paper Supplies": "icon-paper.png", "Stationery": "icon-pencil-cup.png",
-    "Computing": "icon-monitor.png", "Networking": "icon-globe.png",
-    "Organization": "icon-document.png", "Maintenance": "icon-wrench.png"
+  const MENU = ["Document Processing", "Finishing Services", "Maintenance", "Paper Supplies",
+                "Organization", "Stationery", "Computing", "Networking"];
+  const ICONS = {
+    "paper supplies": "icon-paper.png", "stationery": "icon-pencil-cup.png",
+    "computing": "icon-monitor.png", "networking": "icon-globe.png",
+    "organization": "icon-document.png", "maintenance": "icon-wrench.png",
+    "document processing": "icon-gear.png"
   };
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c =>
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const norm = s => String(s || "").trim().toLowerCase();
+  const pretty = s => MENU.find(x => norm(x) === norm(s)) ||
+    String(s || "").trim().replace(/\b\w/g, c => c.toUpperCase());
+
+  let products = [];
+  let current = params.get("category") ? norm(params.get("category")) : "all";
+  let query = (params.get("q") || "").trim().toLowerCase();
+  $("q").value = params.get("q") || "";
 
   function getCart() {
     try { return JSON.parse(localStorage.getItem("cart")) || []; }
     catch { return []; }
   }
   function updateCount() {
-    cartCount.textContent = getCart().reduce((n, i) => n + i.qty, 0);
+    $("cartCount").textContent = getCart().reduce((n, i) => n + i.qty, 0);
   }
   window.addToCart = function (id, btn) {
     const p = products.find(x => x.id === id);
@@ -151,41 +162,60 @@
     setTimeout(() => { btn.textContent = "Add to Cart"; btn.classList.remove("added"); }, 1200);
   };
 
-  function render() {
+  function renderSide() {
+    const counts = {};
+    products.forEach(p => { const k = norm(p.category); counts[k] = (counts[k] || 0) + 1; });
+    let keys = Object.keys(counts);
+    if (current !== "all" && !keys.includes(current)) keys.push(current);
+    const rank = k => { const i = MENU.findIndex(m => norm(m) === k); return i === -1 ? 99 : i; };
+    keys.sort((a, b) => rank(a) - rank(b) || a.localeCompare(b));
+    $("side").innerHTML =
+      `<button data-k="all" class="${current === "all" ? "on" : ""}">All products<small>${products.length} items</small></button>` +
+      keys.map(k => `<button data-k="${esc(k)}" class="${k === current ? "on" : ""}">${esc(pretty(k))}<small>${counts[k] || 0} items</small></button>`).join("");
+  }
+
+  function renderProducts() {
     const list = products.filter(p =>
-      (current === "All" || p.category === current) &&
+      (current === "all" || norm(p.category) === current) &&
       (!query || (p.name + " " + p.category).toLowerCase().includes(query)));
-    info.textContent = list.length + " product" + (list.length === 1 ? "" : "s") +
-      (current !== "All" ? " in " + current : "") + (query ? " matching \"" + params.get("q") + "\"" : "");
-    grid.innerHTML = list.map(p => `
-      <div class="card">
-        <div class="ico"><img src="assets/images/${icons[p.category] || "icon-gear.png"}" alt=""></div>
+    $("mTitle").textContent = current === "all" ? "All products" : pretty(current);
+    $("mCount").textContent = list.length + (list.length === 1 ? " item" : " items") +
+      (query ? ' for "' + (params.get("q") || "") + '"' : "");
+    $("productGrid").innerHTML = list.map(p => `
+      <div class="pc">
+        <div class="img"><img src="assets/images/${ICONS[norm(p.category)] || "icon-gear.png"}" alt=""></div>
         <h3>${esc(p.name)}</h3>
-        <div class="cat">${esc(p.category)}</div>
+        <div class="cat">${esc(pretty(p.category))}</div>
         <div class="price">KES ${Number(p.price).toLocaleString()}</div>
         <div class="stock">${p.stock > 0 ? p.stock + " in stock" : "Out of stock"}</div>
         <button onclick="addToCart('${p.id}', this)" ${p.stock > 0 ? "" : "disabled"}>Add to Cart</button>
-      </div>`).join("") || "No products found.";
+      </div>`).join("") ||
+      `<div class="none">No products ${current === "all" ? "" : "in " + esc(pretty(current)) + " "}yet.</div>`;
   }
 
-  function renderFilters() {
-    const cats = ["All", ...new Set(products.map(p => p.category))];
-    filters.innerHTML = cats.map(c =>
-      `<button class="${c === current ? "active" : ""}" data-cat="${esc(c)}">${esc(c)}</button>`).join("");
-    filters.querySelectorAll("button").forEach(b => {
-      b.onclick = () => { current = b.dataset.cat; renderFilters(); render(); };
-    });
-  }
+  $("side").addEventListener("click", e => {
+    const b = e.target.closest("button[data-k]");
+    if (!b) return;
+    current = b.dataset.k;
+    query = "";
+    $("q").value = "";
+    history.replaceState(null, "", current === "all" ? "products.html" : "products.html?category=" + encodeURIComponent(pretty(current)));
+    renderSide();
+    renderProducts();
+    window.scrollTo({ top: document.querySelector(".shop").offsetTop - 10, behavior: "smooth" });
+  });
 
   updateCount();
   try {
     const snap = await getDocs(collection(db, "products"));
     products = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-    renderFilters();
-    render();
+    renderSide();
+    renderProducts();
   } catch (e) {
-    grid.textContent = "Error: " + e.message;
+    $("productGrid").textContent = "Error: " + e.message;
   }
 </script>
+<script src="assets/js/site.js"></script>
+<script type="module" src="assets/js/account.js"></script>
 </body>
 </html>
