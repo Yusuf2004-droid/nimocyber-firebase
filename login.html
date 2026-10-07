@@ -109,6 +109,7 @@
     <label for="pass">Password (at least 6 characters)</label>
     <input class="f" id="pass" type="password" autocomplete="current-password" />
     <button class="go" id="go" type="button">Login</button>
+    <a href="#" id="forgot" style="display:block;text-align:center;margin-top:12px;font-size:13px;color:#253a8c">Forgot password?</a>
     <div class="msg" id="msg"></div>
   </div>
 
@@ -116,6 +117,7 @@
   <div id="meView" class="me hide">
     <h3 id="meName"></h3>
     <p id="meEmail"></p>
+    <a class="go" style="display:block;text-align:center;background:#253a8c" href="my-orders.html">My orders</a>
     <a class="go" style="display:block;text-align:center" href="products.html">Start shopping</a>
     <button class="go" id="logout" type="button" style="background:#fff;color:#c0392b;border:1px solid #c0392b">Log out</button>
   </div>
@@ -124,7 +126,7 @@
 <script type="module">
   import { db, auth } from "./assets/js/firebase-config.js";
   import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut,
-           updateProfile, onAuthStateChanged }
+           updateProfile, onAuthStateChanged, sendPasswordResetEmail }
     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
     import { doc, setDoc, getDoc, serverTimestamp }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -142,6 +144,8 @@
     $("tabLogin").classList.toggle("on", m === "login");
     $("tabReg").classList.toggle("on", m === "register");
     $("nameRow").classList.toggle("hide", m === "login");
+  
+    $("forgot").classList.toggle("hide", m === "register");
     $("go").textContent = m === "login" ? "Login" : "Create account";
     $("pass").autocomplete = m === "login" ? "current-password" : "new-password";
     show("");
@@ -217,12 +221,10 @@
       pass
     );
 
-    /* Get the user's profile from Firestore */
     const userDoc = await getDoc(
       doc(db, "users", cred.user.uid)
     );
 
-    /* Make sure the profile exists */
     if (!userDoc.exists()) {
       show("User profile not found.", "err");
       await signOut(auth);

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>My Orders - NimoCyber Kenya</title>
+<style>
+  :root{--blue:#2d4fa1;--navy:#253a8c;--orange:#f47b20;--yellow:#fdb913;--green:#00935f;--grey:#e8e8e8}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Arial,Helvetica,sans-serif;color:#111;background:#fff}
+  a{text-decoration:none;color:inherit}
+
+  /* top banner and grey bar */
+  .banner{background:var(--blue);color:#fff;display:flex;align-items:center;gap:30px;padding:14px 50px;flex-wrap:wrap}
+  .banner h1{font-size:34px;font-weight:800;letter-spacing:.5px}
+  .banner .pill{background:#fff;color:#111;font-size:26px;padding:6px 40px;border-radius:30px}
+  .banner small{font-size:16px}
+  .greybar{background:var(--grey);display:flex;align-items:center;padding:12px 50px;gap:60px;flex-wrap:wrap}
+  .greybar .l{color:var(--orange);font-weight:bold;font-size:13px}
+  .greybar .c{color:var(--orange);font-weight:bold;font-size:20px}
+  .greybar .t{font-weight:bold;font-size:15px}
+
+  /* header row */
+  .head{display:flex;align-items:center;gap:30px;padding:14px 50px;flex-wrap:wrap}
+  .brand{color:var(--blue);font-weight:800;font-size:26px;line-height:1}
+  .search{flex:1;min-width:260px;background:var(--grey);border-radius:30px;display:flex;align-items:center;padding:6px 8px 6px 20px;gap:10px}
+  .search img{width:20px}
+  .search input{flex:1;border:none;background:transparent;font-size:15px;outline:none}
+  .search button{background:var(--orange);color:#fff;border:none;border-radius:24px;padding:12px 26px;font-size:15px;cursor:pointer}
+  .actions{display:flex;align-items:center;gap:26px;font-size:18px}
+  .actions a{display:flex;align-items:center;gap:8px}
+  .actions img{width:24px}
+  .actions .chev{font-size:12px}
+
+  /* category menu */
+  .cats{display:flex;justify-content:space-between;gap:18px;padding:12px 30px 14px;overflow-x:auto;white-space:nowrap;border-bottom:1px solid #eee}
+  .cats a{display:flex;align-items:center;gap:7px;font-size:14px}
+  .cats img,.cats svg{height:16px;width:auto}
+
+  /* orders */
+  .wrap{max-width:900px;margin:auto;padding:30px 20px}
+  h2.title{text-align:center;font-size:30px;margin-bottom:6px}
+  .sub{text-align:center;color:#555;font-size:14px;margin-bottom:22px}
+  .order{background:#f4f5f4;border-radius:12px;padding:18px 20px;margin-bottom:16px}
+  .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+  .code{font-weight:bold;font-size:17px}
+  .when{font-size:12px;color:#666;margin-top:2px}
+  .badge{border-radius:14px;padding:5px 14px;font-size:12px;font-weight:bold;color:#fff}
+  .b-new{background:var(--orange)}.b-confirmed{background:var(--blue)}
+  .b-completed{background:var(--green)}.b-cancelled{background:#c0392b}
+
+  .track{display:flex;align-items:center;margin:6px 0 16px}
+  .tstep{flex:1;text-align:center;font-size:11px;color:#888;position:relative}
+  .tstep .dot{width:18px;height:18px;border-radius:50%;background:#ccc;margin:0 auto 4px;position:relative;z-index:1}
+  .tstep:not(:last-child)::after{content:"";position:absolute;top:8px;left:50%;width:100%;height:3px;background:#ccc}
+  .tstep.done{color:#111}
+  .tstep.done .dot,.tstep.done:not(:last-child)::after{background:var(--green)}
+  .cancelled-note{background:#fdecea;color:#c0392b;border-radius:8px;padding:8px 12px;font-size:13px;margin-bottom:14px}
+
+  .items{background:#fff;border-radius:8px;padding:10px 14px;font-size:14px}
+  .item{display:flex;justify-content:space-between;gap:10px;padding:5px 0}
+  .item.total{border-top:1px solid #eee;margin-top:6px;padding-top:10px;font-weight:bold;color:var(--orange);font-size:16px}
+  .info{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
+  .tag{background:#fff;border-radius:12px;padding:4px 12px;font-size:12px;color:#333}
+  .ask{display:inline-block;background:var(--green);color:#fff;border-radius:18px;padding:9px 18px;font-size:13px}
+
+  .center{text-align:center;padding:50px 10px;color:#555}
+  .center a{display:inline-block;margin-top:16px;background:var(--orange);color:#fff;padding:12px 28px;border-radius:22px}
+  .center a.alt{background:var(--yellow);color:#111}
+
+  @media(max-width:800px){
+    .banner,.greybar,.head{padding-left:16px;padding-right:16px;gap:14px}
+    .banner h1{font-size:22px}.banner .pill{font-size:18px;padding:4px 20px}
+  }
+</style>
+</head>
+<body>
+
+<div class="banner">
+  <h1>NIMO CYBER &amp; ACCESSORIES</h1>
+  <span class="pill">60% off</span>
+  <small>Limited quantity</small>
+</div>
+
+<div class="greybar">
+  <span class="l">Cyber Services &amp; Sell Accessories on Nimo</span>
+  <span class="c">NIMO CYBER</span>
+  <span class="t">PAY</span>
+  <span class="t">DELIVERY</span>
+</div>
+
+<div class="head">
+  <a class="brand" href="index.html">NIMO CYBER &amp;<br>ACCESSORIES</a>
+  <form class="search" action="products.html">
+    <img src="assets/images/icon-search.png" alt="">
+    <input type="text" name="q" placeholder="Search products,cyber services and accessories" />
+    <button type="submit">Search</button>
+  </form>
+  <div class="actions">
+    <a href="login.html" id="accountLink"><img src="assets/images/icon-account.png" alt="">Account <span class="chev">&#9013;</span></a>
+    <a href="help.html"><img src="assets/images/icon-help.png" alt="">Help <span class="chev">&#9013;</span></a>
+    <a href="cart.html"><img src="assets/images/icon-cart.png" alt="">Cart (<span id="cartCount">0</span>)</a>
+  </div>
+</div>
+
+<nav class="cats">
+  <a href="index.html#services"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><path d="M3 10l9-6 9 6M5 10v9M19 10v9M9 19v-6M15 19v-6M3 19h18"/></svg>Government &amp; Digital Portals</a>
+  <a href="products.html?category=Document Processing"><img src="assets/images/icon-gear.png" alt="">Document Processing</a>
+  <a href="products.html?category=Finishing Services"><svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>Finishing Services</a>
+  <a href="products.html?category=Maintenance"><img src="assets/images/icon-wrench.png" alt="">Maintenance</a>
+  <a href="products.html?category=Paper Supplies"><img src="assets/images/icon-paper.png" alt="">Paper Supplies</a>
+  <a href="products.html?category=Organization"><img src="assets/images/icon-document.png" alt="">Organization</a>
+  <a href="products.html?category=Stationery"><img src="assets/images/icon-pencil-cup.png" alt="">Stationery</a>
+  <a href="products.html?category=Computing"><img src="assets/images/icon-monitor.png" alt="">Computing</a>
+  <a href="products.html?category=Networking"><img src="assets/images/icon-globe.png" alt="">Networking</a>
+</nav>
+
+<div class="wrap">
+  <h2 class="title">My Orders</h2>
+  <p class="sub" id="sub"></p>
+  <div id="list"><div class="center">Loading your orders...</div></div>
+</div>
+
+<script type="module">
+  import { db, auth } from "./assets/js/firebase-config.js";
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { collection, getDocs, query, where }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  /* helpers */
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const money = n => "KES " + Number(n).toLocaleString();
+  const LABEL = { new: "Received", confirmed: "Confirmed", completed: "Completed", cancelled: "Cancelled" };
+  const STEPS = ["new", "confirmed", "completed"];
+
+  try {
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    $("cartCount").textContent = cart.reduce((n, i) => n + i.qty, 0);
+  } catch {}
+
+  /* one order card */
+  function card(id, o) {
+    const st = LABEL[o.status] ? o.status : "new";
+    const code = id.slice(0, 6).toUpperCase();
+    const when = o.createdAt ? o.createdAt.toDate().toLocaleString() : "";
+    const reached = STEPS.indexOf(st);
+    const track = st === "cancelled"
+      ? '<div class="cancelled-note">This order was cancelled. Contact us if you have a question.</div>'
+      : '<div class="track">' + STEPS.map((s, i) =>
+          `<div class="tstep ${i <= reached ? "done" : ""}"><div class="dot"></div>${LABEL[s]}</div>`).join("") + "</div>";
+    const items = (o.items || []).map(i =>
+      `<div class="item"><span>${esc(i.name)} x${esc(i.qty)}</span><span>${money(i.price * i.qty)}</span></div>`).join("");
+    const wa = (window.NIMO_CONFIG && window.NIMO_CONFIG.whatsapp)
+      ? "https://wa.me/" + window.NIMO_CONFIG.whatsapp + "?text=" + encodeURIComponent("Hello NimoCyber, I have a question about my order " + code + ".")
+      : "";
+    return `
+      <div class="order">
+        <div class="top">
+          <div><div class="code">Order ${esc(code)}</div><div class="when">${esc(when)}</div></div>
+          <span class="badge b-${st}">${LABEL[st]}</span>
+        </div>
+        ${track}
+        <div class="items">${items}<div class="item total"><span>Total</span><span>${money(o.total)}</span></div></div>
+        <div class="info">
+          <span class="tag">${o.method === "delivery" ? "Delivery" : "Pickup"}</span>
+          <span class="tag">${esc(o.payment)}</span>
+          ${o.method === "delivery" && o.address ? `<span class="tag">To: ${esc(o.address)}</span>` : ""}
+        </div>
+        ${wa ? `<a class="ask" target="_blank" href="${wa}">Ask about this order</a>` : ""}
+      </div>`;
+  }
+
+  /* load the signed-in customer's orders */
+  onAuthStateChanged(auth, async user => {
+    const list = $("list");
+    if (!user) {
+      $("sub").textContent = "";
+      list.innerHTML = '<div class="center">Please log in to see your orders.<br><a href="login.html">Log in</a></div>';
+      return;
+    }
+    $("sub").textContent = "Signed in as " + (user.displayName || user.email);
+    try {
+      const snap = await getDocs(query(collection(db, "orders"), where("userId", "==", user.uid)));
+      const rows = snap.docs.map(d => ({ id: d.id, o: d.data() }))
+        .sort((a, b) => (b.o.createdAt ? b.o.createdAt.toMillis() : 0) - (a.o.createdAt ? a.o.createdAt.toMillis() : 0));
+      list.innerHTML = rows.length
+        ? rows.map(r => card(r.id, r.o)).join("")
+        : '<div class="center">You have not placed any orders yet.<br><a class="alt" href="products.html">Start shopping</a></div>';
+    } catch (e) {
+      list.innerHTML = '<div class="center">Could not load your orders: ' + esc(e.message) + "</div>";
+    }
+  });
+</script>
+<script src="assets/js/site.js"></script>
+<script type="module" src="assets/js/account.js"></script>
+</body>
+</html>
